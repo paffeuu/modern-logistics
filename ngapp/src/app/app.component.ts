@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from './service/data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'modern-logistics';
+
+  private dataService: DataService;
+
+  constructor(dataService: DataService){
+    this.dataService = dataService;
+  }
+
+  ngOnInit() {
+    document.body.classList.add("body-background");
+  }
 }
