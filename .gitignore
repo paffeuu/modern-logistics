@@ -1,0 +1,46 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/ngapp/dist
+/ngapp/tmp
+/ngapp/out-tsc
+# Only exists if Bazel was run
+/ngapp/bazel-out
+
+# dependencies
+/ngapp/node_modules
+
+# profiling files
+/ngapp/chrome-profiler-events*.json
+/ngapp/speed-measure-plugin*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+/ngapp/.vscode/*
+/ngapp/!.vscode/settings.json
+/ngapp/!.vscode/tasks.json
+/ngapp/!.vscode/launch.json
+/ngapp/!.vscode/extensions.json
+/ngapp/.history/*
+
+# misc
+/ngapp/.sass-cache
+/ngapp/connect.lock
+/ngapp/coverage
+/ngapp/libpeerconnection.log
+/ngapp/npm-debug.log
+/ngapp/yarn-error.log
+/ngapp/testem.log
+/ngapp/typings
+
+# System Files
+/ngapp/.DS_Store
+/ngapp/Thumbs.db
