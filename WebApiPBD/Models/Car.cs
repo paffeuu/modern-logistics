@@ -11,11 +11,10 @@ namespace WebApiPBD.Models
     {
         [Key]
         public string VIN { get; set; }
-        [Required(ErrorMessage = "Brand id is required")]
+        public string Registration { get; set; }
         public int? BrandID { get; set; }
         [ForeignKey("BrandID")]
-        public CarBrand Brand { get; set; }
+        public CarBrand Brand { get; set; }//Navigation property
         public string Model { get; set; }
-        public string Registration;
     }
 }

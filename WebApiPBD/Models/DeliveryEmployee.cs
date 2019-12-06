@@ -8,8 +8,8 @@ namespace WebApiPBD.Models
     public class DeliveryEmployee
     {
         public int DeliveryId { get; set; }
-        public Delivery Delivery { get; set; }
+        public Delivery Delivery { get; set; }//navigation property
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public Employee Employee { get; set; }//navigation property
     }
 }

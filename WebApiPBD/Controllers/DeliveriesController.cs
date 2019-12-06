@@ -25,7 +25,7 @@ namespace WebApiPBD.Controllers
         public async Task<ActionResult<IEnumerable<Delivery>>> GetDeliveries()
         {
             //return await _context.Deliveries.ToListAsync();
-            return await _context.Deliveries.Include(i => i.DeliveryEmployees).ToListAsync();
+            return await _context.Deliveries.Include(i => i.DeliveryEmployees).Include(i => i.Car).ThenInclude(i => i.Brand).ToListAsync();
         }
 
         // GET: api/Deliveries/5
@@ -33,7 +33,7 @@ namespace WebApiPBD.Controllers
         public async Task<ActionResult<Delivery>> GetDelivery(int id)
         {
             //var delivery = await _context.Deliveries.FindAsync(id);
-            var delivery = await _context.Deliveries.Include(i => i.DeliveryEmployees).FirstOrDefaultAsync(i => i.Id == id);
+            var delivery = await _context.Deliveries.Include(i => i.DeliveryEmployees).Include(i => i.Car).ThenInclude(i => i.Brand).FirstOrDefaultAsync(i => i.Id == id);
 
             if (delivery == null)
             {
@@ -99,7 +99,9 @@ namespace WebApiPBD.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Delivery>> DeleteDelivery(int id)
         {
-            var delivery = await _context.Deliveries.FindAsync(id);
+            //var delivery = await _context.Deliveries.FindAsync(id);
+            var delivery = await _context.Deliveries.Include(i => i.DeliveryEmployees).Include(i => i.Car).FirstOrDefaultAsync(i => i.Id == id);
+
             if (delivery == null)
             {
                 return NotFound();

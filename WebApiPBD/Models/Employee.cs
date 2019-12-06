@@ -11,9 +11,9 @@ namespace WebApiPBD.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "PESEL name is required")]
         [StringLength(50)]
-        public int PESEL { get; set; }
+        public string PESEL { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
-        public virtual ICollection<DeliveryEmployee> DeliveryEmployees { get; set; }//many to many
+        public virtual ICollection<DeliveryEmployee> DeliveryEmployees { get; set; }//NAvigation Property. One to many
     }
 }

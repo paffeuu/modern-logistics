@@ -90,12 +90,15 @@ namespace WebApiPBD.Controllers
         public async Task<ActionResult<CarBrand>> DeleteCarBrand(int id)
         {
             var carBrand = await _context.CarBrands.FindAsync(id);
+            var car = await _context.Cars.FirstOrDefaultAsync(i => i.BrandID == id);
+            car.BrandID = null;
+
             if (carBrand == null)
             {
                 return NotFound();
             }
 
-            _context.CarBrands.Remove(carBrand);
+            _context.CarBrands.Remove(carBrand);          
             await _context.SaveChangesAsync();
 
             return carBrand;

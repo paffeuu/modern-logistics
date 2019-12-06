@@ -21,10 +21,12 @@ namespace WebApiPBD.Models
                 .HasOne(x => x.Delivery)
                 .WithMany(m => m.DeliveryEmployees)
                 .HasForeignKey(x => x.DeliveryId);
+
             modelBuilder.Entity<DeliveryEmployee>()
                 .HasOne(x => x.Employee)
                 .WithMany(m => m.DeliveryEmployees)
-                .HasForeignKey(x => x.EmployeeId);//many to many
+                .HasForeignKey(x => x.EmployeeId);
+                //.OnDelete(DeleteBehavior.Cascade);
 
             //to navigate use select
             //var photos = person.PersonPhotos.Select(c => c.Photo);
@@ -32,7 +34,7 @@ namespace WebApiPBD.Models
 
             /*modelBuilder.Entity<Client>()
                 .HasMany(c => c.Deliveries)
-                .WithOne(e => e.Client);//one to many*/
+                .WithOne(e => e.ClientID);//one to many*/
         }
 
         public DbSet<CarBrand> CarBrands { get; set; }

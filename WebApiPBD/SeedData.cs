@@ -86,19 +86,19 @@ namespace WebApiPBD
             {
                 context.Employees.Add(new Employee
                 {
-                    PESEL = 1234,
+                    PESEL = "12341212345",
                     Forename = "Adrian",
                     Surname = "Głowacki"
                 });
                 context.Employees.Add(new Employee
                 {
-                    PESEL = 5678,
+                    PESEL = "14324545678",
                     Forename = "Adrianna",
                     Surname = "Kowalska"
                 });
                 context.Employees.Add(new Employee
                 {
-                    PESEL = 89,
+                    PESEL = "23432145678",
                     Forename = "Zbigniew",
                     Surname = "Wierzbicki"
                 });

@@ -19,8 +19,10 @@ namespace WebApiPBD.Models
         public int? ClientID { get; set; }
         //[ForeignKey("ClientID")]
         //public Client Client { get; set; }
-        public virtual ICollection<DeliveryEmployee> DeliveryEmployees { get; set; }//one to many
+        public virtual ICollection<DeliveryEmployee> DeliveryEmployees { get; set; }//Navigation property. One to many
     }
 }
 
 public enum FuelType { gasoline, diesel, gas, ethanol, biodiesel, electric, hydrogen }
+
+//https://localhost:44304/api/Deliveries?employees=1&employees=2&employees=3 

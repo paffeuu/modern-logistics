@@ -24,7 +24,8 @@ namespace WebApiPBD.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
-            return await _context.Clients.ToListAsync();
+            //return await _context.Clients.ToListAsync();
+            return await _context.Clients.Include(i => i.Deliveries).ToListAsync();
         }
 
         // GET: api/Clients/5
@@ -90,7 +91,9 @@ namespace WebApiPBD.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Client>> DeleteClient(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            //var client = await _context.Clients.FindAsync(id);
+            var client = await _context.Clients.Include(i => i.Deliveries).FirstOrDefaultAsync(i => i.Id == id);
+
             if (client == null)
             {
                 return NotFound();

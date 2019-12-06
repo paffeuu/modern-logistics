@@ -105,7 +105,11 @@ namespace WebApiPBD.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Car>> DeleteCar(string id)
         {
-            var car = await _context.Cars.FindAsync(id);
+            //var car = await _context.Cars.FindAsync(id);
+            var car = await _context.Cars.Include(i => i.Brand).FirstOrDefaultAsync(i => i.VIN == id);
+            var delivery = await _context.Deliveries.FirstOrDefaultAsync(i => i.CarVIN == id);
+            delivery.CarVIN = null;
+
             if (car == null)
             {
                 return NotFound();

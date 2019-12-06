@@ -91,7 +91,9 @@ namespace WebApiPBD.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            //var employee = await _context.Employees.FindAsync(id);//v
+            var employee = await _context.Employees.Include(i => i.DeliveryEmployees).FirstOrDefaultAsync(i => i.Id == id);
+
             if (employee == null)
             {
                 return NotFound();
