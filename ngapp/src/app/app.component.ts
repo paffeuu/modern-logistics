@@ -9,11 +9,7 @@ import { DataService } from './service/data.service';
 export class AppComponent {
   title = 'modern-logistics';
 
-  private dataService: DataService;
-
-  constructor(dataService: DataService){
-    this.dataService = dataService;
-  }
+  constructor(){}
 
   ngOnInit() {
     document.body.classList.add("body-background");

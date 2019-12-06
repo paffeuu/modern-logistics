@@ -4,22 +4,27 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PlaceholderComponent } from './crud/placeholder/placeholder.component';
-import { ProductComponent } from './crud/product/product.component';
+import { CarBrandComponent } from './crud/car-brand/car-brand.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CarComponent } from './crud/car/car.component';
 
 const appRoutes: Routes = [
   { path: '', component: PlaceholderComponent },
-  { path: 'product', component: ProductComponent}
+  { path: 'car-brand', component: CarBrandComponent},
+  { path: 'car', component: CarComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     PlaceholderComponent,
-    ProductComponent
+    CarBrandComponent,
+    CarComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

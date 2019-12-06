@@ -1,0 +1,23 @@
+<div class="entity-header">
+        <h1><u>Pojazdy</u></h1>
+    </div>
+    
+    <div class="table-container">
+        <table class="table">
+            <tr>
+                <th>VIN</th>
+                <th>Id marki</th>
+                <th>Model</th>
+                <th>Rejestracja</th>
+            </tr>
+            <ng-template ngFor let-item="$implicit" [ngForOf]="cars" let-i="index">
+                <tr>
+                    <td>{{item.VIN}}</td>
+                    <td>{{item.brandId}}</td>
+                    <td>{{item.model}}</td>
+                    <td>{{item.registration}}</td>
+                </tr>
+            </ng-template>
+        </table>
+    </div>
+    
