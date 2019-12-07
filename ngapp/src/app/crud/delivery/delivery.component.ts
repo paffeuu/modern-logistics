@@ -14,9 +14,8 @@ export class DeliveryComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getDeliveriesObservable().subscribe((deliveries) => {
+    this.dataService.getDeliveriesObservable().subscribe(deliveries => {
       deliveries.forEach(delivery => this.deliveries.push(delivery));
-      console.log(this.deliveries)
     })
 
     this.dataService.getDeliveries();

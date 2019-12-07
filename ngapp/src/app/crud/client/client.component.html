@@ -1,0 +1,22 @@
+<div class="entity-header">
+    <h1><u>Klienci</u></h1>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Adres</th>
+            <th>Id dostaw</th>
+        </tr>
+        <ng-template ngFor let-item="$implicit" [ngForOf]="clients" let-i="index">
+            <tr>
+                <td class="id-column">{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.deliveriesIds}}</td>
+            </tr>
+        </ng-template>
+    </table>
+</div>

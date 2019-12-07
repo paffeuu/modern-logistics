@@ -11,7 +11,7 @@
             <th>Zużyto paliwa</th>
             <th>Typ paliwa</th>
             <th>Przejechano km</th>
-            <th>Nazwa klienta</th>
+            <th>Id klienta</th>
             <th>Id pracowników</th>
         </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="deliveries" let-i="index">
@@ -22,8 +22,8 @@
                 <td>{{item.fuelSpent}}</td>
                 <td>{{item.fuelType}}</td>
                 <td>{{item.kmTravelled}}</td>
-                <td>{{item.client.name}}</td>
-                <td>{{item.client.deliveryEmployees}}</td>
+                <td>{{item.clientID}}</td>
+                <td>{{item.deliveryEmployees}}</td>
             </tr>
         </ng-template>
     </table>

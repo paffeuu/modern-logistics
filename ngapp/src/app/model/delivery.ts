@@ -11,7 +11,7 @@ export class Delivery {
     fuelType: string;
     kmTravelled: number;
     // TODO: class Client
-    client: any;
+    clientID: number;
     // TODO: class deliveryEmployees
     deliveryEmployees: any;
 }
