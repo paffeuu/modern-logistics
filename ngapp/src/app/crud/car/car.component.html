@@ -6,14 +6,14 @@
         <table class="table">
             <tr>
                 <th>VIN</th>
-                <th>Id marki</th>
+                <th>Marka</th>
                 <th>Model</th>
                 <th>Rejestracja</th>
             </tr>
             <ng-template ngFor let-item="$implicit" [ngForOf]="cars" let-i="index">
                 <tr>
-                    <td>{{item.VIN}}</td>
-                    <td>{{item.brandId}}</td>
+                    <td class="id-column">{{item.vin}}</td>
+                    <td>{{item.brand.name}}</td>
                     <td>{{item.model}}</td>
                     <td>{{item.registration}}</td>
                 </tr>

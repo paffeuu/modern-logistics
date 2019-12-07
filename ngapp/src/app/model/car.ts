@@ -1,8 +1,11 @@
+import { CarBrand } from './car-brand';
+
 export class Car {
     constructor() {}
 
-    VIN: string;
-    brandId: number;
+    vin: string;
+    brandID: number;
     model: string;
     registration: string;
+    brand: CarBrand;
 }

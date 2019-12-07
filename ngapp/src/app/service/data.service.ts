@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import { Subject } from 'rxjs';
 import { CarBrand } from '../model/car-brand';
 import { Car } from '../model/car';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +27,14 @@ export class DataService {
   }
 
   getCarBrands() {
-    this.http.get("http://www.mocky.io/v2/5dea7fe430000084c02b0981").subscribe((carBrands) =>
+    this.http.get(environment.hostName + "CarBrands").subscribe((carBrands) =>
     {
       this.carBrandsSubject.next(carBrands as CarBrand[]);
     })
   }
 
   getCars() {
-    this.http.get("http://www.mocky.io/v2/5dea87d33000006f6b2b09bd").subscribe((cars) =>
+    this.http.get(environment.hostName + "Cars").subscribe((cars) =>
     {
       this.carsSubject.next(cars as Car[]);
     })
