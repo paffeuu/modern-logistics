@@ -1,0 +1,24 @@
+<div class="entity-header">
+    <h1><u>Pracownicy</u></h1>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Pesel</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Id dostaw</th>
+        </tr>
+        <ng-template ngFor let-item="$implicit" [ngForOf]="employees" let-i="index">
+            <tr>
+                <td class="id-column">{{item.id}}</td>
+                <td>{{item.pesel}}</td>
+                <td>{{item.forename}}</td>
+                <td>{{item.surname}}</td>
+                <td>{{item.deliveryEmployees}}</td>
+            </tr>
+        </ng-template>
+    </table>
+</div>

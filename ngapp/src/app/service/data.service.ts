@@ -6,6 +6,7 @@ import { Car } from '../model/car';
 import { Delivery } from '../model/delivery';
 import { Client } from '../model/client';
 import { environment } from 'src/environments/environment';
+import { Employee } from '../model/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,14 @@ export class DataService {
   carsSubject: Subject<Car[]>;
   deliveriesSubject: Subject<Delivery[]>;
   clientSubject: Subject<Client[]>;
+  employeesSubject: Subject<Employee[]>;
 
   constructor(private http: HttpClient) {
     this.carBrandsSubject = new Subject();
     this.carsSubject = new Subject();
     this.deliveriesSubject = new Subject();
     this.clientSubject = new Subject();
+    this.employeesSubject = new Subject();
   }
 
   getCarBrandsObservable() {
@@ -38,6 +41,10 @@ export class DataService {
 
   getClientsObservable() {
     return this.clientSubject.asObservable();
+  }
+
+  getEmployeesObservable() {
+    return this.employeesSubject.asObservable();
   }
 
   getCarBrands() {
@@ -63,6 +70,12 @@ export class DataService {
   getClients() {
     this.http.get(environment.hostName + "Clients").subscribe(clients => {
       this.clientSubject.next(clients as Client[]);
+    })
+  }
+
+  getEmployees() {
+    this.http.get(environment.hostName + "Employees").subscribe(employees => {
+      this.employeesSubject.next(employees as Employee[]);
     })
   }
 }

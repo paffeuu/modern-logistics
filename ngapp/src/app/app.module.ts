@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CarComponent } from './crud/car/car.component';
 import { DeliveryComponent } from './crud/delivery/delivery.component';
 import { ClientComponent } from './crud/client/client.component';
+import { EmployeeComponent } from './crud/employee/employee.component';
 
 const appRoutes: Routes = [
   { path: '', component: PlaceholderComponent },
   { path: 'car-brand', component: CarBrandComponent},
   { path: 'car', component: CarComponent},
   { path: 'delivery', component: DeliveryComponent},
-  { path: 'client', component: ClientComponent}
+  { path: 'client', component: ClientComponent},
+  { path: 'employee', component: EmployeeComponent}
 ];
 
 @NgModule({
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
     CarBrandComponent,
     CarComponent,
     DeliveryComponent,
-    ClientComponent
+    ClientComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
