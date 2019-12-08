@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Subject } from 'rxjs';
 import { CarBrand } from '../model/car-brand';
 import { Car } from '../model/car';
@@ -18,6 +18,12 @@ export class DataService {
   deliveriesSubject: Subject<Delivery[]>;
   clientSubject: Subject<Client[]>;
   employeesSubject: Subject<Employee[]>;
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
 
   constructor(private http: HttpClient) {
     this.carBrandsSubject = new Subject();
@@ -79,33 +85,38 @@ export class DataService {
     })
   }
 
+  putCarBrand(id, carBrand) {
+    let body = JSON.stringify(carBrand);
+    this.http.put(environment.hostName + "CarBrands/" + id, body, this.httpOptions).subscribe(
+      () => this.getCarBrands()
+    );
+  }
+
   deleteCarBrand(id: number) {
     this.http.delete(environment.hostName + "CarBrands/" + id).subscribe(
-      reponse => this.getCarBrands()
+      () => this.getCarBrands()
     )
   }
 
   deleteCar(id: number) {
-    this.http.delete(environment.hostName + "Cars/" + id).subscribe(
-      reponse => this.getCars()
-    )
+    this.http.delete(environment.hostName + "Cars/" + id).subscribe(this.getCars);
   }
 
   deleteDelivery(id: number) {
     this.http.delete(environment.hostName + "Deliveries/" + id).subscribe(
-      reponse => this.getDeliveries()
+      () => this.getDeliveries()
     )
   }
 
   deleteClient(id: number) {
     this.http.delete(environment.hostName + "Clients/" + id).subscribe(
-      reponse => this.getClients()
+      () => this.getClients()
     )
   }
 
   deleteEmployee(id: number) {
     this.http.delete(environment.hostName + "Employees/" + id).subscribe(
-      reponse => this.getEmployees()
+      () => this.getEmployees()
     )
   }
 }

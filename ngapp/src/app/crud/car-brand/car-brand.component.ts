@@ -22,10 +22,42 @@ export class CarBrandComponent implements OnInit {
     this.dataService.getCarBrands();
   }
 
+  onEditItem(event) {
+    let id = this.findRowId(event);
+    let row = this.findRow(event);
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).style.display = "block";
+    }
+    let button = row.getElementsByTagName("button");
+    button.item(0).style.display = "block";
+  }
+
   onDeleteItem(event) {
-    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    let id = this.findRowId(event);
     this.dataService.deleteCarBrand(id);
   }
 
+  onCommitButtonClick(event) {
+    let id = this.findRowId(event);
+    let row = this.findRow(event);
+    let carBrand = this.collectAllDataAboutCarBrand(row);
+    carBrand.id = id;
+    this.dataService.putCarBrand(id, carBrand);
+  }
+
+  collectAllDataAboutCarBrand(row): CarBrand {
+    let carBrand = new CarBrand();
+    carBrand.name = row.getElementsByClassName("input-name")[0].value;
+    return carBrand;
+  }
+
+  findRowId(event) {
+    return event.path[4].getElementsByClassName("id-column")[0].children[0].textContent;
+  }
+
+  findRow(event) {
+    return event.path[4];
+  }
 
 }
