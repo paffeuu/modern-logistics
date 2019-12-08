@@ -13,11 +13,41 @@
             </tr>
             <ng-template ngFor let-item="$implicit" [ngForOf]="cars" let-i="index">
                 <tr>
-                    <td class="id-column">{{item.vin}}</td>
-                    <td>{{item.brand != null ? item.brand.name : ""}}</td>
-                    <td>{{item.model}}</td>
-                    <td>{{item.registration}}</td>
-                    <td><img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)"></td>
+                    <td class="id-column">
+                        <div class="cell-container">
+                            <p>{{item.vin}}</p> 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <p>{{item.brand != null ? item.brand.name : ""}}</p>
+                            <input class="input-brandname" list="carbrandnames" placeholder="{{item.brand != null ? item.brand.name : ''}}">
+                            <datalist id="carbrandnames"></datalist>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <p>{{item.model}}</p>
+                            <input class="input-model" value="{{item.model}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <p>{{item.registration}}</p>
+                            <input class="input-registration" value="{{item.registration}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <div class="icon-container">
+                                    <img class="icon" src="../../../assets/edit-icon.png" (click)="onEditItem($event)">
+                                    <img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)">
+                            </div>
+                            <div>
+                                <button class="commit-button" (click)="onCommitButtonClick($event)">Zatwierdź</button>
+                            </div>
+                        </div>
+                    </td> 
                 </tr>
             </ng-template>
         </table>

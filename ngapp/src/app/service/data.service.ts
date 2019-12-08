@@ -92,6 +92,13 @@ export class DataService {
     );
   }
 
+  putCar(id, car) {
+    let body = JSON.stringify(car);
+    this.http.put(environment.hostName + "Cars/" + id, body, this.httpOptions).subscribe(
+      () => this.getCars()
+    );
+  }
+
   deleteCarBrand(id: number) {
     this.http.delete(environment.hostName + "CarBrands/" + id).subscribe(
       () => this.getCarBrands()
