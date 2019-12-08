@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Delivery } from 'src/app/model/delivery';
 import { DataService } from 'src/app/service/data.service';
+import { FuelType } from 'src/app/model/fuel-type';
 
 @Component({
   selector: 'app-delivery',
@@ -15,8 +16,13 @@ export class DeliveryComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getDeliveriesObservable().subscribe(deliveries => {
-      deliveries.forEach(delivery => this.deliveries.push(delivery));
-    })
+      deliveries.forEach(delivery => {
+        delivery.fuelTypePolishString = FuelType[delivery.fuelType];
+        delivery.deliveryEmployeesStr = delivery.deliveryEmployees.map(
+          deliveryEmployee => deliveryEmployee.employeeId).join(", ");
+        this.deliveries.push(delivery);
+      })
+    });
 
     this.dataService.getDeliveries();
   }

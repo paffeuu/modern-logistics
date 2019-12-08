@@ -1,3 +1,5 @@
+import { DeliveryEmployee } from './delivery-employee';
+
 export class Employee {
     constructor() {}
 
@@ -5,6 +7,7 @@ export class Employee {
     pesel: string;
     forename: string;
     surname: string;
-    // TODO: class deliveryEmployees
-    deliveryEmployees: any;
+    deliveryEmployees: DeliveryEmployee[];
+
+    deliveryEmployeesStr: string;
 }

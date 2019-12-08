@@ -15,8 +15,12 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getEmployeesObservable().subscribe(employees => {
-      employees.forEach(employee => this.employees.push(employee));
-    })
+      employees.forEach(employee => {
+        employee.deliveryEmployeesStr = employee.deliveryEmployees.map(
+          deliveryEmployee => deliveryEmployee.deliveryId).join(", ");
+        this.employees.push(employee);
+      })
+    });
 
     this.dataService.getEmployees();
   }

@@ -1,4 +1,5 @@
 import { Car } from './car';
+import { DeliveryEmployee } from './delivery-employee';
 
 export class Delivery {
     constructor() {}
@@ -7,10 +8,11 @@ export class Delivery {
     car: Car;
     entryDate: Date;
     fuelSpent: number;
-    // TODO: what's that 
-    fuelType: string;
+    fuelType: number;
     kmTravelled: number;
     clientID: number;
-    // TODO: class deliveryEmployees
-    deliveryEmployees: any;
+    deliveryEmployees: DeliveryEmployee[];
+
+    fuelTypePolishString: string;
+    deliveryEmployeesStr: string;
 }
