@@ -78,4 +78,34 @@ export class DataService {
       this.employeesSubject.next(employees as Employee[]);
     })
   }
+
+  deleteCarBrand(id: number) {
+    this.http.delete(environment.hostName + "CarBrands/" + id).subscribe(
+      reponse => this.getCarBrands()
+    )
+  }
+
+  deleteCar(id: number) {
+    this.http.delete(environment.hostName + "Cars/" + id).subscribe(
+      reponse => this.getCars()
+    )
+  }
+
+  deleteDelivery(id: number) {
+    this.http.delete(environment.hostName + "Deliveries/" + id).subscribe(
+      reponse => this.getDeliveries()
+    )
+  }
+
+  deleteClient(id: number) {
+    this.http.delete(environment.hostName + "Clients/" + id).subscribe(
+      reponse => this.getClients()
+    )
+  }
+
+  deleteEmployee(id: number) {
+    this.http.delete(environment.hostName + "Employees/" + id).subscribe(
+      reponse => this.getEmployees()
+    )
+  }
 }

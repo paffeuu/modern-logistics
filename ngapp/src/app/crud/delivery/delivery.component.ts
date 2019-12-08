@@ -17,6 +17,7 @@ export class DeliveryComponent implements OnInit {
   ngOnInit() {
     this.dataService.getDeliveriesObservable().subscribe(deliveries => {
       deliveries.forEach(delivery => {
+        this.deliveries = [];
         delivery.fuelTypePolishString = FuelType[delivery.fuelType];
         delivery.deliveryEmployeesStr = delivery.deliveryEmployees.map(
           deliveryEmployee => deliveryEmployee.employeeId).join(", ");
@@ -25,6 +26,11 @@ export class DeliveryComponent implements OnInit {
     });
 
     this.dataService.getDeliveries();
+  }
+
+  onDeleteItem(event) {
+    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    this.dataService.deleteDelivery(id);
   }
 
 }

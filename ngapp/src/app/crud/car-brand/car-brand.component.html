@@ -7,11 +7,13 @@
         <tr>
             <th>Id</th>
             <th>Marka pojazdu</th>
+            <th>...</th>
         </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="carBrands" let-i="index">
             <tr>
                 <td class="id-column">{{item.id}}</td>
                 <td>{{item.name}}</td>
+                <td><img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)"></td>
             </tr>
         </ng-template>
     </table>

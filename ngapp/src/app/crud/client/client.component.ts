@@ -16,12 +16,18 @@ export class ClientComponent implements OnInit {
   ngOnInit() {
     this.dataService.getClientsObservable().subscribe(clients => {
       clients.forEach(client => {
+        this.clients = [];
         client.deliveriesIds = client.deliveries.map(delivery => delivery.id).join(", ");
         this.clients.push(client);
       })
     })
 
     this.dataService.getClients();
+  }
+
+  onDeleteItem(event) {
+    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    this.dataService.deleteClient(id);
   }
 
 }

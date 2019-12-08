@@ -9,13 +9,15 @@
                 <th>Marka</th>
                 <th>Model</th>
                 <th>Rejestracja</th>
+                <th>...</th>
             </tr>
             <ng-template ngFor let-item="$implicit" [ngForOf]="cars" let-i="index">
                 <tr>
                     <td class="id-column">{{item.vin}}</td>
-                    <td>{{item.brand.name}}</td>
+                    <td>{{item.brand != null ? item.brand.name : ""}}</td>
                     <td>{{item.model}}</td>
                     <td>{{item.registration}}</td>
+                    <td><img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)"></td>
                 </tr>
             </ng-template>
         </table>

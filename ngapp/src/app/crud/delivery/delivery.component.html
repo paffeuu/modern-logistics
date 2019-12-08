@@ -13,6 +13,7 @@
             <th>Przejechano km</th>
             <th>Id klienta</th>
             <th>Id pracowników</th>
+            <th>...</th>
         </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="deliveries" let-i="index">
             <tr>
@@ -24,6 +25,7 @@
                 <td>{{item.kmTravelled}}</td>
                 <td>{{item.clientID}}</td>
                 <td>{{item.deliveryEmployeesStr}}</td>
+                <td><img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)"></td>
             </tr>
         </ng-template>
     </table>

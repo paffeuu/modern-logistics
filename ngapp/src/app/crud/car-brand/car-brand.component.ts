@@ -15,10 +15,16 @@ export class CarBrandComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getCarBrandsObservable().subscribe((carBrands) => {
+      this.carBrands = [];
       carBrands.forEach(carBrand => this.carBrands.push(carBrand));
     })
 
     this.dataService.getCarBrands();
+  }
+
+  onDeleteItem(event) {
+    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    this.dataService.deleteCarBrand(id);
   }
 
 

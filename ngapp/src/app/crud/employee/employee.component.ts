@@ -15,6 +15,7 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getEmployeesObservable().subscribe(employees => {
+      this.employees = [];
       employees.forEach(employee => {
         employee.deliveryEmployeesStr = employee.deliveryEmployees.map(
           deliveryEmployee => deliveryEmployee.deliveryId).join(", ");
@@ -23,6 +24,11 @@ export class EmployeeComponent implements OnInit {
     });
 
     this.dataService.getEmployees();
+  }
+
+  onDeleteItem(event) {
+    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    this.dataService.deleteEmployee(id);
   }
 
 }

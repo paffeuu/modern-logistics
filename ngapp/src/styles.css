@@ -40,3 +40,8 @@ table, th, td {
     margin-top: 20px;
     margin-bottom: 40px;
 }
+
+.icon {
+    height: 24px;
+    width: 24px;
+}

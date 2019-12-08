@@ -9,6 +9,7 @@
             <th>Nazwa</th>
             <th>Adres</th>
             <th>Id dostaw</th>
+            <th>...</th>
         </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="clients" let-i="index">
             <tr>
@@ -16,6 +17,7 @@
                 <td>{{item.name}}</td>
                 <td>{{item.address}}</td>
                 <td>{{item.deliveriesIds}}</td>
+                <td><img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)"></td>
             </tr>
         </ng-template>
     </table>
