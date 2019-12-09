@@ -51,9 +51,13 @@ export class ClientComponent implements OnInit {
 
   collectAllDataAboutClient(row): Client {
     let client = new Client();
-    client.name = row.getElementsByClassName("input-name")[0].value;
-    client.address = row.getElementsByClassName("input-address")[0].value;
+    client.name = this.getElementFromInputByFieldName("name", row);
+    client.address = this.getElementFromInputByFieldName("address", row);
     return client;
+  }
+
+  getElementFromInputByFieldName(name, row) {
+    return row.getElementsByClassName("input-" + name)[0].value;
   }
   
   findRowId(event) {

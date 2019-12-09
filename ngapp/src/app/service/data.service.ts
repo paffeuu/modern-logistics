@@ -99,6 +99,13 @@ export class DataService {
     );
   }
 
+  putDelivery(id, delivery) {
+    let body = JSON.stringify(delivery);
+    this.http.put(environment.hostName + endpoints.deliveries + "/" + id, body, this.httpOptions).subscribe(
+      () => this.getDeliveries()
+    )
+  }
+
   putClient(id, client) {
     let body = JSON.stringify(client);
     this.http.put(environment.hostName + endpoints.clients + "/" + id, body, this.httpOptions).subscribe(

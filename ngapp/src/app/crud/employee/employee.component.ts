@@ -27,7 +27,6 @@ export class EmployeeComponent implements OnInit {
   }
 
   onEditItem(event) {
-    let id = this.findRowId(event);
     let row = this.findRow(event);
     let inputs = row.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
@@ -52,10 +51,14 @@ export class EmployeeComponent implements OnInit {
 
   collectAllDataAboutEmployee(row): Employee {
     let employee = new Employee();
-    employee.pesel = this.getElementFromRowByFieldName("pesel", row);
-    employee.forename = this.getElementFromRowByFieldName("forename", row);
-    employee.surname = this.getElementFromRowByFieldName("surname", row);
+    employee.pesel = this.getElementFromInputByFieldName("pesel", row);
+    employee.forename = this.getElementFromInputByFieldName("forename", row);
+    employee.surname = this.getElementFromInputByFieldName("surname", row);
     return employee;
+  }
+
+  getElementFromInputByFieldName(name, row) {
+    return row.getElementsByClassName("input-" + name)[0].value;
   }
   
   findRowId(event) {
@@ -64,10 +67,6 @@ export class EmployeeComponent implements OnInit {
 
   findRow(event) {
     return event.path[4];
-  }
-
-  getElementFromRowByFieldName(name, row) {
-    return row.getElementsByClassName("input-" + name)[0].value;
   }
 
 }

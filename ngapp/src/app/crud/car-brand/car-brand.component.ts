@@ -48,8 +48,12 @@ export class CarBrandComponent implements OnInit {
 
   collectAllDataAboutCarBrand(row): CarBrand {
     let carBrand = new CarBrand();
-    carBrand.name = row.getElementsByClassName("input-name")[0].value;
+    carBrand.name = this.getElementFromInputByFieldName("name", row);
     return carBrand;
+  }
+
+  getElementFromInputByFieldName(name, row) {
+    return row.getElementsByClassName("input-" + name)[0].value;
   }
 
   findRowId(event) {

@@ -19,7 +19,7 @@ export class CarComponent implements OnInit {
     this.dataService.getCarsObservable().subscribe((cars) => {
       this.cars = [];
       cars.forEach(car => this.cars.push(car));
-    })
+    })  
 
     this.dataService.getCars();
 
@@ -66,9 +66,13 @@ export class CarComponent implements OnInit {
   collectAllDataAboutCar(row): Car {
     let car = new Car();
     car.brandID = this.carBrands.find(carBrandName => carBrandName.name == row.getElementsByClassName("input-brandname")[0].value).id;
-    car.model = row.getElementsByClassName("input-model")[0].value;
-    car.registration = row.getElementsByClassName("input-registration")[0].value;
+    car.model = this.getElementFromInputByFieldName("model", row);
+    car.registration = this.getElementFromInputByFieldName("registration", row);
     return car;
+  }
+
+  getElementFromInputByFieldName(name, row) {
+    return row.getElementsByClassName("input-" + name)[0].value;
   }
 
   findRowId(event) {

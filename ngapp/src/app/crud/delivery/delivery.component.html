@@ -11,21 +11,70 @@
             <th>Zużyto paliwa</th>
             <th>Typ paliwa</th>
             <th>Przejechano km</th>
-            <th>Id klienta</th>
+            <th>Nazwa klienta</th>
             <th>Id pracowników</th>
             <th>...</th>
         </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="deliveries" let-i="index">
             <tr>
-                <td class="id-column">{{item.id}}</td>
-                <td>{{item.car.vin}}</td>
-                <td>{{item.entryDate}}</td>
-                <td>{{item.fuelSpent}}</td>
-                <td>{{item.fuelTypePolishString}}</td>
-                <td>{{item.kmTravelled}}</td>
-                <td>{{item.clientID}}</td>
-                <td>{{item.deliveryEmployeesStr}}</td>
-                <td><img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)"></td>
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>{{item.id}}</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p class="paragraph-carvin">{{item.carVIN}}</p>
+                        <input class="input-carvin" list="carvins" placeholder="{{item.car != null ? item.car.vin : ''}}">
+                        <datalist id="carvins"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.entryDate}}</p>
+                        <input class="input-entrydate" value="{{item.entryDate}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.fuelSpent}}</p>
+                        <input class="input-fuelspent" value="{{item.fuelSpent}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.fuelTypePolishString}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.kmTravelled}}</p>
+                        <input class="input-kmtravelled" value="{{item.kmTravelled}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p class="paragraph-clientid">{{item.clientName}}</p>
+                        <input class="input-clientid" list="clientnames">
+                        <datalist id="clientnames"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.deliveryEmployeesStr}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                                <img class="icon" src="../../../assets/edit-icon.png" (click)="onEditItem($event)">
+                                <img class="icon" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)">
+                        </div>
+                        <div>
+                            <button class="commit-button" (click)="onCommitButtonClick($event)">Zatwierdź</button>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </ng-template>
     </table>
