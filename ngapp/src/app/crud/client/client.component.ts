@@ -25,9 +25,43 @@ export class ClientComponent implements OnInit {
     this.dataService.getClients();
   }
 
+  onEditItem(event) {
+    let id = this.findRowId(event);
+    let row = this.findRow(event);
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).style.display = "block";
+    }
+    let button = row.getElementsByTagName("button");
+    button.item(0).style.display = "block";
+  }
+
   onDeleteItem(event) {
     let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
     this.dataService.deleteClient(id);
+  }
+
+  onCommitButtonClick(event) {
+    let id = this.findRowId(event);
+    let row = this.findRow(event);
+    let client = this.collectAllDataAboutClient(row);
+    client.id = id;
+    this.dataService.putClient(id, client);
+  }
+
+  collectAllDataAboutClient(row): Client {
+    let client = new Client();
+    client.name = row.getElementsByClassName("input-name")[0].value;
+    client.address = row.getElementsByClassName("input-address")[0].value;
+    return client;
+  }
+  
+  findRowId(event) {
+    return event.path[4].getElementsByClassName("id-column")[0].children[0].textContent;
+  }
+
+  findRow(event) {
+    return event.path[4];
   }
 
 }

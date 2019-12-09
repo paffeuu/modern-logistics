@@ -7,6 +7,14 @@ export const environment = {
   hostName: "http://localhost:5000/api/"
 };
 
+export const endpoints = {
+  cars: "Cars",
+  carBrands: "CarBrands",
+  clients: "Clients",
+  deliveries: "Deliveries",
+  employees: "Employees"
+}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

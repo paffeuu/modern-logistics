@@ -5,7 +5,7 @@ import { CarBrand } from '../model/car-brand';
 import { Car } from '../model/car';
 import { Delivery } from '../model/delivery';
 import { Client } from '../model/client';
-import { environment } from 'src/environments/environment';
+import { environment, endpoints } from 'src/environments/environment';
 import { Employee } from '../model/employee';
 
 @Injectable({
@@ -54,75 +54,89 @@ export class DataService {
   }
 
   getCarBrands() {
-    this.http.get(environment.hostName + "CarBrands").subscribe((carBrands) =>
+    this.http.get(environment.hostName + endpoints.carBrands).subscribe((carBrands) =>
     {
       this.carBrandsSubject.next(carBrands as CarBrand[]);
     })
   }
 
   getCars() {
-    this.http.get(environment.hostName + "Cars").subscribe((cars) =>
+    this.http.get(environment.hostName + endpoints.cars).subscribe((cars) =>
     {
       this.carsSubject.next(cars as Car[]);
     })
   }
 
   getDeliveries() {
-    this.http.get(environment.hostName + "Deliveries").subscribe((deliveries) => {
+    this.http.get(environment.hostName + endpoints.deliveries).subscribe((deliveries) => {
       this.deliveriesSubject.next(deliveries as Delivery[]);
     })
   }
 
   getClients() {
-    this.http.get(environment.hostName + "Clients").subscribe(clients => {
+    this.http.get(environment.hostName + endpoints.clients).subscribe(clients => {
       this.clientSubject.next(clients as Client[]);
     })
   }
 
   getEmployees() {
-    this.http.get(environment.hostName + "Employees").subscribe(employees => {
+    this.http.get(environment.hostName + endpoints.employees).subscribe(employees => {
       this.employeesSubject.next(employees as Employee[]);
     })
   }
 
   putCarBrand(id, carBrand) {
     let body = JSON.stringify(carBrand);
-    this.http.put(environment.hostName + "CarBrands/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + endpoints.carBrands + "/" + id, body, this.httpOptions).subscribe(
       () => this.getCarBrands()
     );
   }
 
   putCar(id, car) {
     let body = JSON.stringify(car);
-    this.http.put(environment.hostName + "Cars/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + endpoints.cars + "/" + id, body, this.httpOptions).subscribe(
       () => this.getCars()
     );
   }
 
+  putClient(id, client) {
+    let body = JSON.stringify(client);
+    this.http.put(environment.hostName + endpoints.clients + "/" + id, body, this.httpOptions).subscribe(
+      () => this.getClients()
+    )
+  }
+
+  putEmployee(id, employee) {
+    let body = JSON.stringify(employee);
+    this.http.put(environment.hostName + endpoints.employees + "/" + id, body, this.httpOptions).subscribe(
+      () => this.getEmployees()
+    )
+  }
+
   deleteCarBrand(id: number) {
-    this.http.delete(environment.hostName + "CarBrands/" + id).subscribe(
+    this.http.delete(environment.hostName + endpoints.carBrands + "/" + id).subscribe(
       () => this.getCarBrands()
     )
   }
 
   deleteCar(id: number) {
-    this.http.delete(environment.hostName + "Cars/" + id).subscribe(this.getCars);
+    this.http.delete(environment.hostName + endpoints.cars + "/" + id).subscribe(this.getCars);
   }
 
   deleteDelivery(id: number) {
-    this.http.delete(environment.hostName + "Deliveries/" + id).subscribe(
+    this.http.delete(environment.hostName + endpoints.deliveries + "/" + id).subscribe(
       () => this.getDeliveries()
     )
   }
 
   deleteClient(id: number) {
-    this.http.delete(environment.hostName + "Clients/" + id).subscribe(
+    this.http.delete(environment.hostName + endpoints.clients + "/" + id).subscribe(
       () => this.getClients()
     )
   }
 
   deleteEmployee(id: number) {
-    this.http.delete(environment.hostName + "Employees/" + id).subscribe(
+    this.http.delete(environment.hostName + endpoints.employees + "/" + id).subscribe(
       () => this.getEmployees()
     )
   }
