@@ -4,6 +4,8 @@ import { DataService } from 'src/app/service/data.service';
 import { FuelType } from 'src/app/model/fuel-type';
 import { Car } from 'src/app/model/car';
 import { Client } from 'src/app/model/client';
+import { Employee } from 'src/app/model/employee';
+import { DeliveryEmployee } from 'src/app/model/delivery-employee';
 
 @Component({
   selector: 'app-delivery',
@@ -12,57 +14,47 @@ import { Client } from 'src/app/model/client';
 })
 export class DeliveryComponent implements OnInit {
 
-  deliveries: Delivery[] = [];
-  cars: Car[] = [];
-  clients: Client[] = [];
+  deliveries: Delivery[];
+  cars: Car[];
+  clients: Client[];
+  employees: Employee[];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.dataService.getDeliveriesObservable().subscribe(deliveries => {
-      this.deliveries = [];
-      deliveries.forEach(delivery => {
-        delivery.fuelTypePolishString = FuelType[delivery.fuelType];
-        delivery.deliveryEmployeesStr = delivery.deliveryEmployees.map(
-          deliveryEmployee => deliveryEmployee.employeeId).join(", ");
-        this.deliveries.push(delivery);
-      })
+      this.deliveries = deliveries;
+      this.completeFuelType();
     });
 
     this.dataService.getCarsObservable().subscribe(cars => 
-      {
-        this.cars = cars;
-        let carVINs = document.getElementById("carvins");
-        carVINs.innerHTML = "";
-        this.cars.forEach(car => {
-          let carVIN = car.vin;
-          let option = document.createElement('option');
-          option.value = carVIN;   
-          carVINs.appendChild(option);
-        });
-      });
+    {
+      this.cars = cars;
+      this.completeCarVINs();
+    });
 
     this.dataService.getClientsObservable().subscribe(clients =>
-      {
-        setTimeout(() => this.deliveries.forEach(delivery => {
-          delivery.clientName = clients.find(client => client.id == delivery.clientID).name;
-          this.clients = clients;
-          let clientNames = document.getElementById("clientnames");
-          clientNames.innerHTML = "";
-          this.clients.forEach(client => {
-            let clientName = client.name;
-            let option = document.createElement('option');
-            option.value = clientName;
-            clientNames.appendChild(option);});
-          }), 100);
-      }
-    );  
+    {
+      this.clients = clients;
+      setTimeout(() => this.completeClientNames(), 100);
       
+    });
+
+    this.dataService.getEmployeesObservable().subscribe(employees => {
+      this.employees = employees;
+      setTimeout(() => {
+        this.completeEmployeeNames();
+        this.completeEmployeeNamesOnList();
+        this.completeInitialStateOfEmployeeNames();
+      }, 100);
+     })
+
   }
 
   ngAfterViewInit() {
     this.dataService.getDeliveries();
     this.dataService.getClients();
+    this.dataService.getEmployees();
   }
 
   onEditItem(event) {
@@ -73,8 +65,15 @@ export class DeliveryComponent implements OnInit {
     }
     let button = row.getElementsByTagName("button");
     button.item(0).style.display = "block";
+    let ul  = row.getElementsByTagName("ul");
+    ul.item(0).style.display = "block";
+    let ulInputs = ul.item(0).getElementsByTagName("input");
+    for (let i = 0; i < ulInputs.length; i++) {
+      ulInputs.item(i).style.display = "inline";
+    }
     this.getCars();
     this.getClients();
+    this.getEmployees();
   }
 
   onDeleteItem(event) {
@@ -85,15 +84,15 @@ export class DeliveryComponent implements OnInit {
   onCommitButtonClick(event) {
     let id = this.findRowId(event);
     let row = this.findRow(event);
-    let delivery = this.collectAllDataAboutDelivery(row);
-    delivery.id = id;
+    let delivery = this.collectAllDataAboutDelivery(row, id);
     this.dataService.putDelivery(id, delivery);
     this.getClients();
-    setTimeout(() => this.switchClientIdToClientName(), 300);
+    this.getEmployees();
   }
 
-  collectAllDataAboutDelivery(row): Delivery {
+  collectAllDataAboutDelivery(row, id): Delivery {
     let delivery = new Delivery();
+    delivery.id = id;
     if (this.getElementFromInputByFieldName("carvin", row)) {
       delivery.carVIN = this.cars.find(car => car.vin == this.getElementFromInputByFieldName("carvin", row)).vin;
     } else {
@@ -107,7 +106,98 @@ export class DeliveryComponent implements OnInit {
     } else {
       delivery.clientID = this.clients.find(client => client.name == this.getElementFromParagraphByFieldName("clientid", row)).id;
     }
+    this.collectDataAboutDeliveryEmployees(delivery, row);
     return delivery;
+  }
+
+  collectDataAboutDeliveryEmployees(delivery, row) {
+    delivery.deliveryEmployees = [];
+    let employeeDeliveryInputs = row.getElementsByClassName("input-employees");
+    for (let i = 0; i < employeeDeliveryInputs.length; i++) {
+      let item = employeeDeliveryInputs.item(i);
+      if (!item.checked) {
+        continue;
+      }
+      let employeeId = parseInt(item.classList.item(1).split("-")[2]);
+      let deliveryEmployee = new DeliveryEmployee();
+      deliveryEmployee.deliveryId = delivery.id;
+      deliveryEmployee.employeeId = employeeId;
+      delivery.deliveryEmployees.push(deliveryEmployee);
+    }
+  }
+
+  completeFuelType() {
+    this.deliveries.forEach(delivery => {
+      delivery.fuelTypePolishString = FuelType[delivery.fuelType];
+    })
+  }
+
+  completeCarVINs() {
+    let carVINs = document.getElementById("carvins");
+    carVINs.innerHTML = "";
+    this.cars.forEach(car => {
+      let carVIN = car.vin;
+      let option = document.createElement('option');
+      option.value = carVIN;   
+      carVINs.appendChild(option);
+    });
+  }
+
+  completeClientNames() {
+    this.deliveries.forEach(delivery => {
+      let client = this.clients.find(client => client.id == delivery.clientID)
+      if (client) {
+        delivery.clientName = client.name;
+      }
+      let clientNames = document.getElementById("clientnames");
+      clientNames.innerHTML = "";
+      this.clients.forEach(client => {
+        let clientName = client.name;
+        let option = document.createElement('option');
+        option.value = clientName;
+        clientNames.appendChild(option);});
+      });
+  }
+
+  completeEmployeeNames() {
+    this.deliveries.forEach(delivery => {
+      let employeeNames = [];
+      delivery.deliveryEmployees.forEach(deliveryEmployee => {
+        let employee = this.employees.find(employee => employee.id == deliveryEmployee.employeeId);
+        if (employee) {
+          employeeNames.push(employee.surname);
+        }
+      });
+      delivery.employeeSurnames = employeeNames.join(", ");
+    });
+  }
+
+  completeEmployeeNamesOnList() {
+    let inputEmployees = document.getElementsByClassName("input-employees");
+    for (let i = 0; i < inputEmployees.length; i++) {
+      let item = inputEmployees.item(i);
+      let employeeId = parseInt(item.classList.item(1).split("-")[2]);
+      let employee = this.employees.find(employee => employee.id == employeeId);
+      if (employee) {
+        item.parentElement.children[1].innerHTML = employee.surname;
+      }
+    }
+  }
+
+  completeInitialStateOfEmployeeNames() { 
+    let rows = document.getElementsByClassName("row");
+    for (let i = 0; i < rows.length; i++) {
+      let row = rows.item(0);
+      let deliveryId = row.getElementsByClassName("id-column").item(0).children[0].children[0].textContent;
+      let deliveryEmployees = this.deliveries.find(delivery => delivery.id == parseInt(deliveryId)).deliveryEmployees;
+      let employeeIds = deliveryEmployees.map(deliveryEmployee => deliveryEmployee.employeeId);
+      employeeIds.forEach(employeeId => {
+        let checkbox = document.getElementsByClassName("input-employees-" + employeeId).item(0);
+        if (checkbox) {
+          checkbox.checked = true;
+        }
+      });
+    }   
   }
 
   findRowId(event) {
@@ -116,17 +206,6 @@ export class DeliveryComponent implements OnInit {
 
   findRow(event) {
     return event.path[4];
-  }
-
-  switchClientIdToClientName() {
-    let paragraphClientNames = document.getElementsByClassName("paragraph-clientid");
-    for (let i = 0; i < paragraphClientNames.length; i++) {
-      let item = paragraphClientNames.item(i);
-      let client = this.clients.find(client => client.id == parseInt(item.innerHTML))
-      if (client) {
-        item.innerHTML = client.name;
-      }
-    }
   }
 
   getElementFromInputByFieldName(name, row) {
@@ -143,6 +222,10 @@ export class DeliveryComponent implements OnInit {
 
   getClients() {
     this.dataService.getClients();
+  }
+
+  getEmployees() {
+    this.dataService.getEmployees();
   }
 
 }

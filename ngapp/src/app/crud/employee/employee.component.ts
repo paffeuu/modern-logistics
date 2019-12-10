@@ -9,18 +9,14 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  employees: Employee[] = [];
+  employees: Employee[];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.dataService.getEmployeesObservable().subscribe(employees => {
-      this.employees = [];
-      employees.forEach(employee => {
-        employee.deliveryEmployeesStr = employee.deliveryEmployees.map(
-          deliveryEmployee => deliveryEmployee.deliveryId).join(", ");
-        this.employees.push(employee);
-      })
+      this.employees = employees;
+      this.completeDeliveryIds();
     });
 
     this.dataService.getEmployees();
@@ -55,6 +51,13 @@ export class EmployeeComponent implements OnInit {
     employee.forename = this.getElementFromInputByFieldName("forename", row);
     employee.surname = this.getElementFromInputByFieldName("surname", row);
     return employee;
+  }
+
+  completeDeliveryIds() {
+    this.employees.forEach(employee => {
+      employee.deliveryEmployeesStr = employee.deliveryEmployees.map(
+        deliveryEmployee => deliveryEmployee.deliveryId).join(", ");
+    })
   }
 
   getElementFromInputByFieldName(name, row) {

@@ -12,11 +12,11 @@
             <th>Typ paliwa</th>
             <th>Przejechano km</th>
             <th>Nazwa klienta</th>
-            <th>Id pracowników</th>
+            <th>Nazwiska pracowników</th>
             <th>...</th>
         </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="deliveries" let-i="index">
-            <tr>
+            <tr class="row">
                 <td class="id-column">
                     <div class="cell-container">
                         <p>{{item.id}}</p> 
@@ -61,7 +61,12 @@
                 </td>
                 <td>
                     <div class="cell-container">
-                        <p>{{item.deliveryEmployeesStr}}</p>
+                        <p>{{item.employeeSurnames}}</p>
+                        <ul>
+                            <ng-template ngFor let-employee="$implicit" [ngForOf]="employees" let-i="index">
+                                <li><input class="input-employees input-employees-{{employee.id}}" type="checkbox"><p>{{item.employeeId}}</p></li>
+                            </ng-template>
+                        </ul>
                     </div>
                 </td>
                 <td>

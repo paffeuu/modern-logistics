@@ -12,9 +12,10 @@ export class Delivery {
     fuelType: number;
     kmTravelled: number;
     clientID: number;
-    clientName: string;
     deliveryEmployees: DeliveryEmployee[];
 
+    clientName: string;
     fuelTypePolishString: string;
     deliveryEmployeesStr: string;
+    employeeSurnames: string;
 }

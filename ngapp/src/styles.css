@@ -29,7 +29,7 @@ a {
 table, th, td {
     border: solid black 1px;
     border-collapse: collapse;
-    padding: 10px;
+    padding: 7px;
 }
 
 .id-column {
@@ -64,8 +64,18 @@ table, th, td {
     align-items: center;
 }
 
-.cell-container > input, button {
+.cell-container > input, button, ul {
     display: none;
+}
+
+.cell-container > input {
+    max-width: 6em;
+}
+
+.cell-container > ul {
+    list-style-type: none;
+    padding-inline-start: 10px;
+    width: 150px;
 }
 
 .commit-button {
