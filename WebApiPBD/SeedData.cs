@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiPBD.Models;
+using WebApiPBD.Services;
 
 namespace WebApiPBD
 {
@@ -103,6 +104,23 @@ namespace WebApiPBD
                     Surname = "Wierzbicki"
                 });
 
+                context.SaveChanges();
+            }
+
+            if (!context.Users.Any())
+            {
+                byte[] passwordHash, passwordSalt;
+                UserService.CreatePasswordHash("ownerPassword", out passwordHash, out passwordSalt);
+                context.Users.Add(new User
+                {
+                    Forename = "OwnerName",
+                    Surname = "Owner",
+                    Username = "owner",
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
+                    Role = Role.Owner,
+                    Token = null
+                });
                 context.SaveChanges();
             }
         }

@@ -4807,8 +4807,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.CodeAnalysis.dll": {
-            "assemblyVersion": "3.4.0.0",
-            "fileVersion": "3.400.19.56804"
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.300.19.41501"
           }
         },
         "resources": {
@@ -4859,8 +4859,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "assemblyVersion": "3.4.0.0",
-            "fileVersion": "3.400.19.56804"
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.300.19.41501"
           }
         },
         "resources": {
@@ -4913,8 +4913,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "assemblyVersion": "3.4.0.0",
-            "fileVersion": "3.400.19.56804"
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.300.19.41501"
           }
         },
         "resources": {
@@ -4979,8 +4979,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "assemblyVersion": "3.4.0.0",
-            "fileVersion": "3.400.19.56804"
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.300.19.41501"
           }
         },
         "resources": {

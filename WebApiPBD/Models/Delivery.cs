@@ -12,10 +12,10 @@ namespace WebApiPBD.Models
         public string CarVIN { get; set; }//not nullable
         [ForeignKey("CarVIN")]
         public Car Car { get; set; }
-        public DateTime EntryDate { get; set; }
-        public decimal FuelSpent { get; set; }
-        public FuelType FuelType { get; set; }
-        public decimal KmTravelled { get; set; }      
+        public DateTime? EntryDate { get; set; }
+        public decimal? FuelSpent { get; set; }
+        public FuelType? FuelType { get; set; }
+        public decimal? KmTravelled { get; set; }      
         public int? ClientID { get; set; }
         //[ForeignKey("ClientID")]
         //public Client Client { get; set; }

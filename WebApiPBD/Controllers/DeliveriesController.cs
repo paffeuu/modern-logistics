@@ -53,8 +53,53 @@ namespace WebApiPBD.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(delivery).State = EntityState.Modified;
+
+           
+            if (delivery.DeliveryEmployees != null)
+            {
+                if (delivery.DeliveryEmployees.Count > 0)
+                {
+                    var listOfNewEmployeeId = delivery.DeliveryEmployees.Select(r => r.EmployeeId);
+                    var deliveryEmployeesToDelete = _context.DeliveryEmployees.Where(r => r.DeliveryId == id && !listOfNewEmployeeId.Contains(r.EmployeeId));
+                    foreach (var delEmp in deliveryEmployeesToDelete)
+                        _context.DeliveryEmployees.Remove(delEmp);
+
+                    var listOfExistingEmployeeId = _context.DeliveryEmployees.Where(i => i.DeliveryId == id).Select(r => r.EmployeeId);
+                    var listOfNewEmployeeIdToAdd = listOfNewEmployeeId.Where(r => !listOfExistingEmployeeId.Contains(r));
+                    foreach (var newEmp in listOfNewEmployeeIdToAdd.ToList())
+                        _context.DeliveryEmployees.Add(new DeliveryEmployee
+                        {
+                            DeliveryId = id,
+                            EmployeeId = newEmp
+                        });
+                }
+                else
+                {
+                    var deliveryEmployeesToDelete = _context.DeliveryEmployees.Where(r => delivery.Id == r.DeliveryId);
+                    foreach (var delEmp in deliveryEmployeesToDelete)
+                        _context.DeliveryEmployees.Remove(delEmp);
+                }
+            }
+            
+
+            //check for null, dont update em
+            if (delivery.CarVIN == null)
+                _context.Entry(delivery).Property(x => x.CarVIN).IsModified = false;
+            if (delivery.ClientID == null)
+                _context.Entry(delivery).Property(x => x.ClientID).IsModified = false;
+            if (delivery.EntryDate == null)
+                _context.Entry(delivery).Property(x => x.EntryDate).IsModified = false;
+
+            if (delivery.FuelSpent == null)
+                _context.Entry(delivery).Property(x => x.FuelSpent).IsModified = false;
+            if (delivery.FuelType == null)
+                _context.Entry(delivery).Property(x => x.FuelType).IsModified = false;
+            if (delivery.KmTravelled == null)
+                _context.Entry(delivery).Property(x => x.KmTravelled).IsModified = false;
+            if (delivery.EntryDate == null)
+                _context.Entry(delivery).Property(x => x.EntryDate).IsModified = false;
+
 
             try
             {

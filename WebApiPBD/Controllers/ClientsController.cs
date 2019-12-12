@@ -55,6 +55,10 @@ namespace WebApiPBD.Controllers
             }
 
             _context.Entry(client).State = EntityState.Modified;
+            if (client.Address == null)
+                _context.Entry(client).Property(x => x.Address).IsModified = false;
+            if (client.Name == null)
+                _context.Entry(client).Property(x => x.Name).IsModified = false;
 
             try
             {

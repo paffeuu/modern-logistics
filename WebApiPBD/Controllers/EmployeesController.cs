@@ -56,6 +56,13 @@ namespace WebApiPBD.Controllers
 
             _context.Entry(employee).State = EntityState.Modified;
 
+            if (employee.PESEL == null)
+                _context.Entry(employee).Property(x => x.PESEL).IsModified = false;
+            if (employee.Forename == null)
+                _context.Entry(employee).Property(x => x.Forename).IsModified = false;
+            if (employee.Surname == null)
+                _context.Entry(employee).Property(x => x.Surname).IsModified = false;
+
             try
             {
                 await _context.SaveChangesAsync();

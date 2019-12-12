@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DATA\\Programming\\DotNET\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj": {}
+    "D:\\DATA\\Programming\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj": {}
   },
   "projects": {
-    "D:\\DATA\\Programming\\DotNET\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj": {
+    "D:\\DATA\\Programming\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DATA\\Programming\\DotNET\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj",
+        "projectUniqueName": "D:\\DATA\\Programming\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj",
         "projectName": "WebApiPBD",
-        "projectPath": "D:\\DATA\\Programming\\DotNET\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj",
+        "projectPath": "D:\\DATA\\Programming\\modern-logistics\\WebApiPBD\\WebApiPBD.csproj",
         "packagesPath": "C:\\Users\\karol\\.nuget\\packages\\",
-        "outputPath": "D:\\DATA\\Programming\\DotNET\\modern-logistics\\WebApiPBD\\obj\\",
+        "outputPath": "D:\\DATA\\Programming\\modern-logistics\\WebApiPBD\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\karol\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,18 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -63,6 +75,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.5.0, )"
             }
           },
           "imports": [
@@ -101,7 +117,7 @@
         }
       },
       "runtimes": {
-        "win-x64": {
+        "win10-x64": {
           "#import": []
         }
       }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using WebApiPBD.Models;
 
 namespace WebApiPBD.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CarsController : ControllerBase
@@ -21,7 +23,8 @@ namespace WebApiPBD.Controllers
         }
 
         // GET: api/Cars
-        [HttpGet]
+        //[Authorize(Roles = Role.Owner)]
+        [HttpGet]        
         public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
             //return await _context.Cars.ToListAsync();
@@ -55,6 +58,14 @@ namespace WebApiPBD.Controllers
             }
 
             _context.Entry(car).State = EntityState.Modified;
+
+            if (car.Registration == null)
+                _context.Entry(car).Property(x => x.Registration).IsModified = false;
+            if (car.BrandID == null)
+                _context.Entry(car).Property(x => x.BrandID).IsModified = false;
+            if (car.Model == null)
+                _context.Entry(car).Property(x => x.Model).IsModified = false;
+
 
             try
             {
@@ -108,7 +119,8 @@ namespace WebApiPBD.Controllers
             //var car = await _context.Cars.FindAsync(id);
             var car = await _context.Cars.Include(i => i.Brand).FirstOrDefaultAsync(i => i.VIN == id);
             var delivery = await _context.Deliveries.FirstOrDefaultAsync(i => i.CarVIN == id);
-            delivery.CarVIN = null;
+            if(delivery != null)
+                delivery.CarVIN = null;
 
             if (car == null)
             {

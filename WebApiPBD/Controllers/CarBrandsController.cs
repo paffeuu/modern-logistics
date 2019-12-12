@@ -53,6 +53,8 @@ namespace WebApiPBD.Controllers
             }
 
             _context.Entry(carBrand).State = EntityState.Modified;
+            if (carBrand.Name == null)
+                _context.Entry(carBrand).Property(x => x.Name).IsModified = false;
 
             try
             {
@@ -91,7 +93,8 @@ namespace WebApiPBD.Controllers
         {
             var carBrand = await _context.CarBrands.FindAsync(id);
             var car = await _context.Cars.FirstOrDefaultAsync(i => i.BrandID == id);
-            car.BrandID = null;
+            if(car != null)
+                car.BrandID = null;
 
             if (carBrand == null)
             {

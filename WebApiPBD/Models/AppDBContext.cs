@@ -43,5 +43,6 @@ namespace WebApiPBD.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<DeliveryEmployee> DeliveryEmployees { get; set; } 
+        public DbSet<User> Users { get; set; }
     }
 }
