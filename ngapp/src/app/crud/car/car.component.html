@@ -11,6 +11,36 @@
                 <th>Rejestracja</th>
                 <th>...</th>
             </tr>
+            <tr class="create-row">
+                    <td class="id-column">
+                        <div class="cell-container">
+                            <input class="input-vin">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <input class="input-brandname" list="carbrandnames">
+                            <datalist id="carbrandnames"></datalist>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <input class="input-model">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <input class="input-registration">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <div class="icon-container">
+                                <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                            </div>
+                        </div>
+                    </td> 
+                </tr>
             <ng-template ngFor let-item="$implicit" [ngForOf]="cars" let-i="index">
                 <tr class="default-row">
                     <td class="id-column">

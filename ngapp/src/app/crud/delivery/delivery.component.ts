@@ -55,6 +55,15 @@ export class DeliveryComponent implements OnInit {
     this.dataService.getDeliveries();
     this.dataService.getClients();
     this.dataService.getEmployees();
+    this.dataService.getCars();
+  }
+
+  onCreateItem(event) {
+    let row = this.findRow(event);
+    let delivery = this.collectAllDataAboutDelivery(row);
+    this.dataService.postDelivery(delivery);
+    this.cleanCreateRow(row);
+    this.getClients();
   }
 
   onEditItem(event) {
@@ -77,22 +86,22 @@ export class DeliveryComponent implements OnInit {
   }
 
   onDeleteItem(event) {
-    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    let id = this.findRowId(event);
     this.dataService.deleteDelivery(id);
   }
 
   onCommitButtonClick(event) {
     let id = this.findRowId(event);
     let row = this.findRow(event);
-    let delivery = this.collectAllDataAboutDelivery(row, id);
+    let delivery = this.collectAllDataAboutDelivery(row);
+    delivery.id = id;
     this.dataService.putDelivery(id, delivery);
     this.getClients();
     this.getEmployees();
   }
 
-  collectAllDataAboutDelivery(row, id): Delivery {
+  collectAllDataAboutDelivery(row): Delivery {
     let delivery = new Delivery();
-    delivery.id = id;
     if (this.getElementFromInputByFieldName("carvin", row)) {
       delivery.carVIN = this.cars.find(car => car.vin == this.getElementFromInputByFieldName("carvin", row)).vin;
     } else {
@@ -133,23 +142,35 @@ export class DeliveryComponent implements OnInit {
   }
 
   completeCarVINs() {
-    let carVINs = document.getElementById("carvins");
-    carVINs.innerHTML = "";
-    this.cars.forEach(car => {
-      let carVIN = car.vin;
-      let option = document.createElement('option');
-      option.value = carVIN;   
-      carVINs.appendChild(option);
-    });
+    let carVINsList = document.getElementsByClassName("carvins");
+    for (let i = 0; i < carVINsList.length; i++) {
+      let carVINs = carVINsList.item(i);
+      carVINs.innerHTML = "";
+      this.cars.forEach(car => {
+        let carVIN = car.vin;
+        let option = document.createElement('option');
+        option.value = carVIN;   
+        carVINs.appendChild(option);
+      });
+    } 
   }
 
   completeClientNames() {
+    let clientNamesCreate = document.getElementById("clientnames1");
+    clientNamesCreate.innerHTML = "";
+    this.clients.forEach(client => {
+      let clientName = client.name;
+      let option = document.createElement('option');
+      option.value = clientName;
+      clientNamesCreate.appendChild(option);
+    });
+    
     this.deliveries.forEach(delivery => {
       let client = this.clients.find(client => client.id == delivery.clientID)
       if (client) {
         delivery.clientName = client.name;
       }
-      let clientNames = document.getElementById("clientnames");
+      let clientNames = document.getElementById("clientnames2");
       clientNames.innerHTML = "";
       this.clients.forEach(client => {
         let clientName = client.name;
@@ -206,6 +227,13 @@ export class DeliveryComponent implements OnInit {
 
   findRow(event) {
     return event.path[4];
+  }
+
+  cleanCreateRow(row) {
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).value = "";  
+    }
   }
 
   getElementFromInputByFieldName(name, row) {

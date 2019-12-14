@@ -60,16 +60,12 @@ export class CarBrandComponent implements OnInit {
 
   collectAllDataAboutCarBrandOnCreate(row): CarBrand {
     let carBrand = new CarBrand();
-    carBrand.name = this.getElementFromCreateInputByFieldName("name", row);
+    carBrand.name = this.getElementFromInputByFieldName("name", row);
     return carBrand;
   }
 
   getElementFromInputByFieldName(name, row) {
     return row.getElementsByClassName("input-" + name)[0].value;
-  }
-
-  getElementFromCreateInputByFieldName(name, row) {
-    return row.getElementsByClassName("input-" + name + "-create")[0].value;
   }
 
   findRowId(event) {

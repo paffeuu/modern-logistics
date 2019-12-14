@@ -11,6 +11,35 @@
             <th>Id dostaw</th>
             <th>...</th>
         </tr>
+        <tr class="create-row">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>-</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-name">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-address">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>-</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                            <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                        </div>
+                    </div>
+                </td> 
+            </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="clients" let-i="index">
             <tr class="default-row">
                 <td class="id-column">

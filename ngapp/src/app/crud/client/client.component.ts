@@ -15,14 +15,20 @@ export class ClientComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getClientsObservable().subscribe(clients => {
-      clients.forEach(client => {
-        this.clients = [];
+      this.clients = clients;
+      this.clients.forEach(client => {
         client.deliveriesIds = client.deliveries.map(delivery => delivery.id).join(", ");
-        this.clients.push(client);
       })
     })
 
     this.dataService.getClients();
+  }
+
+  onCreateItem(event) {
+    let row = this.findRow(event);
+    let client = this.collectAllDataAboutClient(row);
+    this.dataService.postClient(client);
+    this.cleanCreateRow(row);
   }
 
   onEditItem(event) {
@@ -37,7 +43,7 @@ export class ClientComponent implements OnInit {
   }
 
   onDeleteItem(event) {
-    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    let id = this.findRowId(event);
     this.dataService.deleteClient(id);
   }
 
@@ -68,4 +74,10 @@ export class ClientComponent implements OnInit {
     return event.path[4];
   }
 
+  cleanCreateRow(row) {
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).value = "";  
+    }
+  }
 }

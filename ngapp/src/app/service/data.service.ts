@@ -60,6 +60,34 @@ export class DataService {
     );
   }
 
+  postCar(car) {
+    let body = JSON.stringify(car);
+    this.http.post(environment.hostName + endpoints.cars, body, this.httpOptions).subscribe(
+      () => this.getCars()
+    );
+  }
+
+  postDelivery(delivery) {
+    let body = JSON.stringify(delivery);
+    this.http.post(environment.hostName + endpoints.deliveries, body, this.httpOptions).subscribe(
+      () => this.getDeliveries()
+    )
+  }
+
+  postClient(client) {
+    let body = JSON.stringify(client);
+    this.http.post(environment.hostName + endpoints.clients, body, this.httpOptions).subscribe(
+      () => this.getClients()
+    )
+  }
+
+  postEmployee(employee) {
+    let body = JSON.stringify(employee);
+    this.http.post(environment.hostName + endpoints.employees, body, this.httpOptions).subscribe(
+      () => this.getEmployees()
+    )
+  }
+
   getCarBrands() {
     this.http.get(environment.hostName + endpoints.carBrands).subscribe((carBrands) =>
     {

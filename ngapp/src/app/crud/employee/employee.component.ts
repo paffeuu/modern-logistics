@@ -22,6 +22,13 @@ export class EmployeeComponent implements OnInit {
     this.dataService.getEmployees();
   }
 
+  onCreateItem(event) {
+    let row = this.findRow(event);
+    let newEmployee = this.collectAllDataAboutEmployee(row);
+    this.dataService.postEmployee(newEmployee);
+    this.cleanCreateRow(row);
+  }
+
   onEditItem(event) {
     let row = this.findRow(event);
     let inputs = row.getElementsByTagName("input");
@@ -33,7 +40,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   onDeleteItem(event) {
-    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    let id = this.findRowId(event);
     this.dataService.deleteEmployee(id);
   }
 
@@ -72,4 +79,10 @@ export class EmployeeComponent implements OnInit {
     return event.path[4];
   }
 
+  cleanCreateRow(row) {
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).value = "";  
+    }
+  }
 }

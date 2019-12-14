@@ -22,6 +22,7 @@ export class CarComponent implements OnInit {
     })  
 
     this.dataService.getCars();
+    this.dataService.getCarBrands();
 
     this.dataService.getCarBrandsObservable().subscribe(carBrands => 
       {
@@ -35,7 +36,13 @@ export class CarComponent implements OnInit {
           carBrandNames.appendChild(option);
         });
       });
-  
+  }
+
+  onCreateItem(event) {
+    let row = this.findRow(event);
+    let car = this.collectAllDataAboutCarCreate(row);
+    this.dataService.postCar(car);
+    this.cleanCreateRow(row);
   }
 
   onEditItem(event) {
@@ -51,7 +58,7 @@ export class CarComponent implements OnInit {
   }
 
   onDeleteItem(event) {
-    let id = event.path[2].getElementsByClassName("id-column")[0].innerHTML;
+    let id = this.findRowId(event);
     this.dataService.deleteCar(id);
   }
 
@@ -65,6 +72,15 @@ export class CarComponent implements OnInit {
 
   collectAllDataAboutCar(row): Car {
     let car = new Car();
+    car.brandID = this.carBrands.find(carBrandName => carBrandName.name == row.getElementsByClassName("input-brandname")[0].value).id;
+    car.model = this.getElementFromInputByFieldName("model", row);
+    car.registration = this.getElementFromInputByFieldName("registration", row);
+    return car;
+  }
+
+  collectAllDataAboutCarCreate(row): Car {
+    let car = new Car();
+    car.vin = this.getElementFromInputByFieldName("vin", row);
     car.brandID = this.carBrands.find(carBrandName => carBrandName.name == row.getElementsByClassName("input-brandname")[0].value).id;
     car.model = this.getElementFromInputByFieldName("model", row);
     car.registration = this.getElementFromInputByFieldName("registration", row);
@@ -85,6 +101,13 @@ export class CarComponent implements OnInit {
 
   getCarBrands() {
     this.dataService.getCarBrands();
+  }
+
+  cleanCreateRow(row) {
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).value = "";  
+    }
   }
 
 }

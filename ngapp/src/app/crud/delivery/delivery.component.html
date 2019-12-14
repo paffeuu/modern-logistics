@@ -15,6 +15,61 @@
             <th>Nazwiska pracowników</th>
             <th>...</th>
         </tr>
+        <tr class="create-row">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>-</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-carvin" list="carvins1">
+                        <datalist class="carvins" id="carvins1"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-entrydate">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-fuelspent">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>-</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-kmtravelled">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-clientid" list="clientnames1">
+                        <datalist class="clientnames" id="clientnames1"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <ul>
+                            <!-- <ng-template ngFor let-employee="$implicit" [ngForOf]="employees" let-i="index">
+                                <li><input class="input-employees input-employees-{{employee.id}}" type="checkbox"><p>{{item.employeeId}}</p></li>
+                            </ng-template> -->
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                                <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                        </div>
+                    </div>
+                </td>
+            </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="deliveries" let-i="index">
             <tr class="default-row">
                 <td class="id-column">
@@ -25,8 +80,8 @@
                 <td>
                     <div class="cell-container">
                         <p class="paragraph-carvin">{{item.carVIN}}</p>
-                        <input class="input-carvin" list="carvins" placeholder="{{item.car != null ? item.car.vin : ''}}">
-                        <datalist id="carvins"></datalist>
+                        <input class="input-carvin" list="carvins2" placeholder="{{item.car != null ? item.car.vin : ''}}">
+                        <datalist class="carvins" id="carvins2"></datalist>
                     </div>
                 </td>
                 <td>
@@ -55,8 +110,8 @@
                 <td>
                     <div class="cell-container">
                         <p class="paragraph-clientid">{{item.clientName}}</p>
-                        <input class="input-clientid" list="clientnames">
-                        <datalist id="clientnames"></datalist>
+                        <input class="input-clientid" list="clientnames2">
+                        <datalist id="clientnames2"></datalist>
                     </div>
                 </td>
                 <td>

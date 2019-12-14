@@ -12,6 +12,41 @@
             <th>Id dostaw</th>
             <th>...</th>
         </tr>
+        <tr class="create-row">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>-</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-pesel">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-forename">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-surname">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>-</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                            <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
         <ng-template ngFor let-item="$implicit" [ngForOf]="employees" let-i="index">
             <tr class="default-row">
                 <td class="id-column">
