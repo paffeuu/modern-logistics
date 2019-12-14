@@ -53,6 +53,13 @@ export class DataService {
     return this.employeesSubject.asObservable();
   }
 
+  postCarBrand(carBrand) {
+    let body = JSON.stringify(carBrand);
+    this.http.post(environment.hostName + endpoints.carBrands, body, this.httpOptions).subscribe(
+      () => this.getCarBrands()
+    );
+  }
+
   getCarBrands() {
     this.http.get(environment.hostName + endpoints.carBrands).subscribe((carBrands) =>
     {

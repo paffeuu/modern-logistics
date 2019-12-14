@@ -9,10 +9,34 @@
             <th>Marka pojazdu</th>
             <th>...</th>
         </tr>
+        <tr class="create-row">
+            <td class="id-column">
+                <div class="cell-container">
+                    <p>-</p>
+                </div>
+            </td>
+            <td>
+                <div class="cell-container">
+                    <input class="input-name-create">
+                </div>
+            </td>
+            <td>
+                <div class="cell-container">
+                    <div class="icon-container">
+                        <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                    </div>
+                    <div>
+                        <button class="commit-button" (click)="onCommitButtonClick($event)">Zatwierdź</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
         <ng-template ngFor let-item="$implicit" [ngForOf]="carBrands" let-i="index">
-            <tr>
+            <tr class="default-row">
                 <td class="id-column">
-                    <p>{{item.id}}</p>
+                    <div class="cell-container">
+                        <p>{{item.id}}</p>
+                    </div>
                 </td>
                 <td>
                     <div class="cell-container">

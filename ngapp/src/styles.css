@@ -64,7 +64,7 @@ table, th, td {
     align-items: center;
 }
 
-.cell-container > input, button, ul {
+.default-row > td > .cell-container > input, button, ul {
     display: none;
 }
 
@@ -83,3 +83,6 @@ table, th, td {
     margin: 10px;
 }
 
+.create-row {
+    height: 50px;
+}

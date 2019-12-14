@@ -22,8 +22,14 @@ export class CarBrandComponent implements OnInit {
     this.dataService.getCarBrands();
   }
 
+  onCreateItem(event) {
+    let row = this.findRow(event);
+    let newCarBrand = this.collectAllDataAboutCarBrandOnCreate(row);
+    this.dataService.postCarBrand(newCarBrand);
+    this.cleanCreateRow(row);
+  }
+
   onEditItem(event) {
-    let id = this.findRowId(event);
     let row = this.findRow(event);
     let inputs = row.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
@@ -52,8 +58,18 @@ export class CarBrandComponent implements OnInit {
     return carBrand;
   }
 
+  collectAllDataAboutCarBrandOnCreate(row): CarBrand {
+    let carBrand = new CarBrand();
+    carBrand.name = this.getElementFromCreateInputByFieldName("name", row);
+    return carBrand;
+  }
+
   getElementFromInputByFieldName(name, row) {
     return row.getElementsByClassName("input-" + name)[0].value;
+  }
+
+  getElementFromCreateInputByFieldName(name, row) {
+    return row.getElementsByClassName("input-" + name + "-create")[0].value;
   }
 
   findRowId(event) {
@@ -62,6 +78,13 @@ export class CarBrandComponent implements OnInit {
 
   findRow(event) {
     return event.path[4];
+  }
+
+  cleanCreateRow(row) {
+    let inputs = row.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs.item(i).value = "";  
+    }
   }
 
 }
