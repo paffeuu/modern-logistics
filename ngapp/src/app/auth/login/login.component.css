@@ -1,0 +1,16 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-item {
+    width: 200px;
+    margin: 20px;
+}
+
+button {
+    display: inline;
+}

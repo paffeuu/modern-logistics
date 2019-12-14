@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  hostName: "http://localhost:5000/api/"
+  hostName: "http://localhost:5000/",
+  apiPath: "api/",
+  authPath: "users/"
 };
 
 export const endpoints = {
@@ -13,6 +15,10 @@ export const endpoints = {
   clients: "Clients",
   deliveries: "Deliveries",
   employees: "Employees"
+}
+
+export const authEndpoints = {
+  login: "authenticate"
 }
 
 /*

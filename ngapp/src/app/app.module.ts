@@ -5,19 +5,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PlaceholderComponent } from './crud/placeholder/placeholder.component';
 import { CarBrandComponent } from './crud/car-brand/car-brand.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CarComponent } from './crud/car/car.component';
 import { DeliveryComponent } from './crud/delivery/delivery.component';
 import { ClientComponent } from './crud/client/client.component';
 import { EmployeeComponent } from './crud/employee/employee.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthenticationService } from './service/authentication.service';
+import { AuthenticationInterceptor } from './service/authentication-interceptor';
 
 const appRoutes: Routes = [
-  { path: '', component: PlaceholderComponent },
-  { path: 'car-brand', component: CarBrandComponent},
-  { path: 'car', component: CarComponent},
-  { path: 'delivery', component: DeliveryComponent},
-  { path: 'client', component: ClientComponent},
-  { path: 'employee', component: EmployeeComponent}
+  { path: '', component: LoginComponent},
+  { path: 'main', component: PlaceholderComponent, canActivate: [AuthenticationService] },
+  { path: 'car-brand', component: CarBrandComponent, canActivate: [AuthenticationService]},
+  { path: 'car', component: CarComponent, canActivate: [AuthenticationService]},
+  { path: 'delivery', component: DeliveryComponent, canActivate: [AuthenticationService]},
+  { path: 'client', component: ClientComponent, canActivate: [AuthenticationService]},
+  { path: 'employee', component: EmployeeComponent, canActivate: [AuthenticationService]}
 ];
 
 @NgModule({
@@ -28,14 +32,17 @@ const appRoutes: Routes = [
     CarComponent,
     DeliveryComponent,
     ClientComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

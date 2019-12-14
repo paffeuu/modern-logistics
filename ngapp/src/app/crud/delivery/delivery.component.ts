@@ -213,7 +213,7 @@ export class DeliveryComponent implements OnInit {
       let deliveryEmployees = this.deliveries.find(delivery => delivery.id == parseInt(deliveryId)).deliveryEmployees;
       let employeeIds = deliveryEmployees.map(deliveryEmployee => deliveryEmployee.employeeId);
       employeeIds.forEach(employeeId => {
-        let checkbox = document.getElementsByClassName("input-employees-" + employeeId).item(0);
+        let checkbox:any = document.getElementsByClassName("input-employees-" + employeeId).item(0);
         if (checkbox) {
           checkbox.checked = true;
         }

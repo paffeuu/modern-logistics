@@ -55,130 +55,130 @@ export class DataService {
 
   postCarBrand(carBrand) {
     let body = JSON.stringify(carBrand);
-    this.http.post(environment.hostName + endpoints.carBrands, body, this.httpOptions).subscribe(
+    this.http.post(environment.hostName + environment.apiPath + endpoints.carBrands, body, this.httpOptions).subscribe(
       () => this.getCarBrands()
     );
   }
 
   postCar(car) {
     let body = JSON.stringify(car);
-    this.http.post(environment.hostName + endpoints.cars, body, this.httpOptions).subscribe(
+    this.http.post(environment.hostName + environment.apiPath + endpoints.cars, body, this.httpOptions).subscribe(
       () => this.getCars()
     );
   }
 
   postDelivery(delivery) {
     let body = JSON.stringify(delivery);
-    this.http.post(environment.hostName + endpoints.deliveries, body, this.httpOptions).subscribe(
+    this.http.post(environment.hostName + environment.apiPath + endpoints.deliveries, body, this.httpOptions).subscribe(
       () => this.getDeliveries()
     )
   }
 
   postClient(client) {
     let body = JSON.stringify(client);
-    this.http.post(environment.hostName + endpoints.clients, body, this.httpOptions).subscribe(
+    this.http.post(environment.hostName + environment.apiPath + endpoints.clients, body, this.httpOptions).subscribe(
       () => this.getClients()
     )
   }
 
   postEmployee(employee) {
     let body = JSON.stringify(employee);
-    this.http.post(environment.hostName + endpoints.employees, body, this.httpOptions).subscribe(
+    this.http.post(environment.hostName + environment.apiPath + endpoints.employees, body, this.httpOptions).subscribe(
       () => this.getEmployees()
     )
   }
 
   getCarBrands() {
-    this.http.get(environment.hostName + endpoints.carBrands).subscribe((carBrands) =>
+    this.http.get(environment.hostName + environment.apiPath + endpoints.carBrands).subscribe((carBrands) =>
     {
       this.carBrandsSubject.next(carBrands as CarBrand[]);
     })
   }
 
   getCars() {
-    this.http.get(environment.hostName + endpoints.cars).subscribe((cars) =>
+    this.http.get(environment.hostName + environment.apiPath + endpoints.cars).subscribe((cars) =>
     {
       this.carsSubject.next(cars as Car[]);
     })
   }
 
   getDeliveries() {
-    this.http.get(environment.hostName + endpoints.deliveries).subscribe((deliveries) => {
+    this.http.get(environment.hostName + environment.apiPath + endpoints.deliveries).subscribe((deliveries) => {
       this.deliveriesSubject.next(deliveries as Delivery[]);
     })
   }
 
   getClients() {
-    this.http.get(environment.hostName + endpoints.clients).subscribe(clients => {
+    this.http.get(environment.hostName + environment.apiPath + endpoints.clients).subscribe(clients => {
       this.clientSubject.next(clients as Client[]);
     })
   }
 
   getEmployees() {
-    this.http.get(environment.hostName + endpoints.employees).subscribe(employees => {
+    this.http.get(environment.hostName + environment.apiPath + endpoints.employees).subscribe(employees => {
       this.employeesSubject.next(employees as Employee[]);
     })
   }
 
   putCarBrand(id, carBrand) {
     let body = JSON.stringify(carBrand);
-    this.http.put(environment.hostName + endpoints.carBrands + "/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + environment.apiPath + endpoints.carBrands + "/" + id, body, this.httpOptions).subscribe(
       () => this.getCarBrands()
     );
   }
 
   putCar(id, car) {
     let body = JSON.stringify(car);
-    this.http.put(environment.hostName + endpoints.cars + "/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + environment.apiPath + endpoints.cars + "/" + id, body, this.httpOptions).subscribe(
       () => this.getCars()
     );
   }
 
   putDelivery(id, delivery) {
     let body = JSON.stringify(delivery);
-    this.http.put(environment.hostName + endpoints.deliveries + "/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + environment.apiPath + endpoints.deliveries + "/" + id, body, this.httpOptions).subscribe(
       () => this.getDeliveries()
     )
   }
 
   putClient(id, client) {
     let body = JSON.stringify(client);
-    this.http.put(environment.hostName + endpoints.clients + "/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + environment.apiPath + endpoints.clients + "/" + id, body, this.httpOptions).subscribe(
       () => this.getClients()
     )
   }
 
   putEmployee(id, employee) {
     let body = JSON.stringify(employee);
-    this.http.put(environment.hostName + endpoints.employees + "/" + id, body, this.httpOptions).subscribe(
+    this.http.put(environment.hostName + environment.apiPath + endpoints.employees + "/" + id, body, this.httpOptions).subscribe(
       () => this.getEmployees()
     )
   }
 
   deleteCarBrand(id: number) {
-    this.http.delete(environment.hostName + endpoints.carBrands + "/" + id).subscribe(
+    this.http.delete(environment.hostName + environment.apiPath + endpoints.carBrands + "/" + id).subscribe(
       () => this.getCarBrands()
     )
   }
 
   deleteCar(id: number) {
-    this.http.delete(environment.hostName + endpoints.cars + "/" + id).subscribe(this.getCars);
+    this.http.delete(environment.hostName + environment.apiPath + endpoints.cars + "/" + id).subscribe(this.getCars);
   }
 
   deleteDelivery(id: number) {
-    this.http.delete(environment.hostName + endpoints.deliveries + "/" + id).subscribe(
+    this.http.delete(environment.hostName + environment.apiPath + endpoints.deliveries + "/" + id).subscribe(
       () => this.getDeliveries()
     )
   }
 
   deleteClient(id: number) {
-    this.http.delete(environment.hostName + endpoints.clients + "/" + id).subscribe(
+    this.http.delete(environment.hostName + environment.apiPath + endpoints.clients + "/" + id).subscribe(
       () => this.getClients()
     )
   }
 
   deleteEmployee(id: number) {
-    this.http.delete(environment.hostName + endpoints.employees + "/" + id).subscribe(
+    this.http.delete(environment.hostName + environment.apiPath + endpoints.employees + "/" + id).subscribe(
       () => this.getEmployees()
     )
   }
