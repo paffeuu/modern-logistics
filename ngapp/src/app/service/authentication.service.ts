@@ -4,6 +4,7 @@ import { User } from '../model/auth/user';
 import { HttpClient } from '@angular/common/http';
 import { environment, authEndpoints } from 'src/environments/environment';
 import { Router, CanActivate } from '@angular/router';
+import { Role } from '../model/auth/role';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,18 @@ export class AuthenticationService implements CanActivate {
     private http: HttpClient, 
     private router: Router) 
   {
-    let currentUser:any = localStorage.getItem('currentUser');
-    if (currentUser) {
+    let currentUserString:any = localStorage.getItem('currentUser');
+    if (currentUserString) {
       this.logged = true;
-      this.currentUserToken = JSON.parse(currentUser).token;
+      this.currentUser = JSON.parse(currentUserString).token;
     }
-    this.currentUser = new BehaviorSubject(JSON.parse(currentUser));
+    let currentUser:User = JSON.parse(currentUserString) as User;
+    this.currentUserValue = currentUser;
+    this.currentUser = new BehaviorSubject(currentUser);
   }
 
   currentUser: BehaviorSubject<User>;
-  currentUserToken: string;
+  currentUserValue: User;
   logged: boolean;
 
   login(username, password) {
@@ -33,10 +36,10 @@ export class AuthenticationService implements CanActivate {
     }
     this.http.post(environment.hostName + environment.authPath + authEndpoints.login, body).subscribe(
       (resp:any) => {
-        let currentUser = new User(resp.username, resp.token);
+        let currentUser = new User(resp.username, resp.token, resp.role);
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
         this.currentUser.next(currentUser);
-        this.currentUserToken = currentUser.token;
+        this.currentUserValue = currentUser;
         this.logged = true;
       }
     )
@@ -46,7 +49,7 @@ export class AuthenticationService implements CanActivate {
     localStorage.removeItem('currentUser');
     this.currentUser.next(null);
     this.logged = false;
-    this.currentUserToken = null;
+    this.currentUserValue = null;
   }
 
   canActivate() {
