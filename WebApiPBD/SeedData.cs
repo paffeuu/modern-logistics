@@ -121,6 +121,28 @@ namespace WebApiPBD
                     Role = Role.Owner,
                     Token = null
                 });
+                UserService.CreatePasswordHash("adminPassword", out passwordHash, out passwordSalt);
+                context.Users.Add(new User
+                {
+                    Forename = "AdminName",
+                    Surname = "Admin",
+                    Username = "admin",
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
+                    Role = Role.Admin,
+                    Token = null
+                });
+                UserService.CreatePasswordHash("userPassword", out passwordHash, out passwordSalt);
+                context.Users.Add(new User
+                {
+                    Forename = "UserName",
+                    Surname = "User",
+                    Username = "user",
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
+                    Role = Role.Admin,
+                    Token = null
+                });
                 context.SaveChanges();
             }
         }

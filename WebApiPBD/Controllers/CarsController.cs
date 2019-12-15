@@ -10,7 +10,7 @@ using WebApiPBD.Models;
 
 namespace WebApiPBD.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CarsController : ControllerBase
@@ -49,6 +49,7 @@ namespace WebApiPBD.Controllers
         // PUT: api/Cars/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Owner + "," + Role.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCar(string id, Car car)
         {
@@ -89,6 +90,7 @@ namespace WebApiPBD.Controllers
         // POST: api/Cars
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Owner + "," + Role.Admin)]
         [HttpPost]
         public async Task<ActionResult<Car>> PostCar(Car car)
         {
@@ -113,6 +115,7 @@ namespace WebApiPBD.Controllers
         }
 
         // DELETE: api/Cars/5
+        [Authorize(Roles = Role.Owner)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Car>> DeleteCar(string id)
         {

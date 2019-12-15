@@ -39,8 +39,8 @@ namespace WebApiPBD
             services.AddDbContext<AppDBContext>(opt => 
             opt.UseInMemoryDatabase("AppList"));
 
-            /*services.AddDbContext<AppDBContext>(opt => 
-            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));   */
+            //services.AddDbContext<AppDBContext>(opt => 
+            //opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));   
             
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());//n

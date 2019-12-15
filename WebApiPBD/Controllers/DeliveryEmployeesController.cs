@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using WebApiPBD.Models;
 
 namespace WebApiPBD.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DeliveryEmployeesController : ControllerBase
@@ -44,6 +46,7 @@ namespace WebApiPBD.Controllers
         // PUT: api/DeliveryEmployees/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Owner + "," + Role.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDeliveryEmployee(int id, DeliveryEmployee deliveryEmployee)
         {
@@ -76,6 +79,7 @@ namespace WebApiPBD.Controllers
         // POST: api/DeliveryEmployees
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Owner + "," + Role.Admin)]
         [HttpPost]
         public async Task<ActionResult<DeliveryEmployee>> PostDeliveryEmployee(DeliveryEmployee deliveryEmployee)
         {
@@ -100,6 +104,7 @@ namespace WebApiPBD.Controllers
         }
 
         // DELETE: api/DeliveryEmployees/5
+        [Authorize(Roles = Role.Owner)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<DeliveryEmployee>> DeleteDeliveryEmployee(int id)
         {

@@ -16,8 +16,9 @@ namespace WebApiPBD
         public static void Main(string[] args)
         {
             //CreateHostBuilder(args).Build().Run();
-            var host = CreateHostBuilder(args).Build();
 
+
+            var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -32,7 +33,6 @@ namespace WebApiPBD
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
-
             host.Run();
         }
 

@@ -66,6 +66,7 @@ namespace WebApiPBD.Controllers
             {
                 Id = user.Id,
                 Username = user.Username,
+                Role = user.Role,
                 FirstName = user.Forename,
                 LastName = user.Surname,
                 Token = tokenString

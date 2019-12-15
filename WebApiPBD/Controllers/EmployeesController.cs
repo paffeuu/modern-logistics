@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using WebApiPBD.Models;
 
 namespace WebApiPBD.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -46,6 +48,7 @@ namespace WebApiPBD.Controllers
         // PUT: api/Employees/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Owner + "," + Role.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {
@@ -85,6 +88,7 @@ namespace WebApiPBD.Controllers
         // POST: api/Employees
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Owner + "," + Role.Admin)]
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
@@ -95,6 +99,7 @@ namespace WebApiPBD.Controllers
         }
 
         // DELETE: api/Employees/5
+        [Authorize(Roles = Role.Owner)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
