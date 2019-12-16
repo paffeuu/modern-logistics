@@ -44,3 +44,45 @@
 # System Files
 /ngapp/.DS_Store
 /ngapp/Thumbs.db
+
+/WebApiPBD/
+
+/WebApiPBD/*.swp
+/WebApiPBD/*.*~
+/WebApiPBD/project.lock.json
+/WebApiPBD/.DS_Store
+/WebApiPBD/*.pyc
+/WebApiPBD/nupkg/
+
+# Visual Studio Code
+/WebApiPBD/.vscode
+
+# Rider
+/WebApiPBD/.idea
+
+# User-specific files
+/WebApiPBD/*.suo
+/WebApiPBD/*.user
+/WebApiPBD/*.userosscache
+/WebApiPBD/*.sln.docstates
+
+# Build results
+/WebApiPBD/[Dd]ebug/
+/WebApiPBD/[Dd]ebugPublic/
+/WebApiPBD/[Rr]elease/
+/WebApiPBD/[Rr]eleases/
+/WebApiPBD/x64/
+/WebApiPBD/x86/
+/WebApiPBD/build/
+/WebApiPBD/bld/
+/WebApiPBD/[Bb]in/
+/WebApiPBD/[Oo]bj/
+/WebApiPBD/[Oo]ut/
+/WebApiPBD/msbuild.log
+/WebApiPBD/msbuild.err
+/WebApiPBD/msbuild.wrn
+
+# Visual Studio 2015
+/WebApiPBD/.vs/
+
+!/WebApiPBD/bin/Release/netcoreapp3.0/win-x64/WebApiPBD.exe
