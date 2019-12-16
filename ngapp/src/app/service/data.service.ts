@@ -162,7 +162,8 @@ export class DataService {
   }
 
   deleteCar(id: number) {
-    this.http.delete(environment.hostName + environment.apiPath + endpoints.cars + "/" + id).subscribe(this.getCars);
+    this.http.delete(environment.hostName + environment.apiPath + endpoints.cars + "/" + id).subscribe(
+      () => this.getCars());
   }
 
   deleteDelivery(id: number) {

@@ -4,7 +4,6 @@ import { User } from '../model/auth/user';
 import { HttpClient } from '@angular/common/http';
 import { environment, authEndpoints } from 'src/environments/environment';
 import { Router, CanActivate } from '@angular/router';
-import { Role } from '../model/auth/role';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +14,12 @@ export class AuthenticationService implements CanActivate {
     private http: HttpClient, 
     private router: Router) 
   {
-    let currentUserString:any = localStorage.getItem('currentUser');
+    let currentUserString = localStorage.getItem('currentUser');
     if (currentUserString) {
       this.logged = true;
-      this.currentUser = JSON.parse(currentUserString).token;
     }
-    let currentUser:User = JSON.parse(currentUserString) as User;
-    this.currentUserValue = currentUser;
-    this.currentUser = new BehaviorSubject(currentUser);
+    this.currentUserValue = JSON.parse(currentUserString) as User;
+    this.currentUser = new BehaviorSubject(this.currentUserValue);
   }
 
   currentUser: BehaviorSubject<User>;
@@ -50,6 +47,10 @@ export class AuthenticationService implements CanActivate {
     this.currentUser.next(null);
     this.logged = false;
     this.currentUserValue = null;
+  }
+
+  getUserRole() {
+    return this.currentUserValue.role;
   }
 
   canActivate() {
