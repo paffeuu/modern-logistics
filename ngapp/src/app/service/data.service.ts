@@ -103,6 +103,22 @@ export class DataService {
     )
   }
 
+  postUser(user) {
+    let body = JSON.stringify(user);
+    this.http.post(environment.hostName + environment.authPath + authEndpoints.newUser, body, this.httpOptions).subscribe(
+      () => this.getUsers(),
+      err => this.notificationService.parseErrorMessage(err)
+    )
+  }
+
+  postUserAdmin(user) {
+    let body = JSON.stringify(user);
+    this.http.post(environment.hostName + environment.authPath + authEndpoints.newUserAdmin, body, this.httpOptions).subscribe(
+      () => this.getUsers(),
+      err => this.notificationService.parseErrorMessage(err)
+    )
+  }
+
   getCarBrands() {
     this.http.get(environment.hostName + environment.apiPath + endpoints.carBrands).subscribe(
       carBrands => this.carBrandsSubject.next(carBrands as CarBrand[]),

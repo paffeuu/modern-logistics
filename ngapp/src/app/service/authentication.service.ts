@@ -4,6 +4,7 @@ import { User } from '../model/auth/user';
 import { HttpClient } from '@angular/common/http';
 import { environment, authEndpoints } from 'src/environments/environment';
 import { Router, CanActivate } from '@angular/router';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthenticationService implements CanActivate {
 
   constructor(
     private http: HttpClient, 
-    private router: Router) 
+    private router: Router,
+    private notificationService: NotificationService) 
   {
     let currentUserString = localStorage.getItem('currentUser');
     if (currentUserString) {
@@ -38,7 +40,8 @@ export class AuthenticationService implements CanActivate {
         this.currentUser.next(currentUser);
         this.currentUserValue = currentUser;
         this.logged = true;
-      }
+      },
+      err => this.notificationService.parseErrorMessage(err)
     )
   }
 

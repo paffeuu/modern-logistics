@@ -19,7 +19,9 @@ export const endpoints = {
 
 export const authEndpoints = {
   login: "authenticate",
-  users: ""
+  users: "",
+  newUser: "registerUser",
+  newUserAdmin: "registerAdmin"
 }
 
 /*

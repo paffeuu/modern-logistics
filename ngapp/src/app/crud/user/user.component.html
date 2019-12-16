@@ -1,5 +1,5 @@
 <div class="entity-header">
-    <h1><u>Pracownicy</u></h1>
+    <h1><u>Użytkownicy</u></h1>
 </div>
 
 <div class="table-container">
@@ -13,7 +13,7 @@
             <th>Rola</th>
             <th>...</th>
         </tr>
-        <tr class="create-row level-1 level-2 level-3">
+        <tr class="create-row level-1 level-2 level-3 restricted">
                 <td class="id-column">
                     <div class="cell-container">
                         <p>-</p> 
@@ -41,7 +41,15 @@
                 </td>
                 <td>
                     <div class="cell-container">
-                        <input class="input-role">
+                        <input class="input-role level-1 level-2 restricted" list="roles">
+                        <datalist id="roles">
+                            <option>User</option>
+                        </datalist>
+                        <input class="input-role level-3 restricted" list="roles-all">
+                        <datalist id="roles-all">
+                            <option>User</option>
+                            <option>Admin</option>
+                        </datalist>
                     </div>
                 </td>
                 <td>

@@ -31,9 +31,12 @@ export class UserComponent implements OnInit, AfterViewChecked {
 
   onCreateItem(event) {
     let row = this.findRow(event);
-    let newEmployee = this.collectAllDataAboutUser(row);
-    // if which type of user
-    // this.dataService.postUser(newEmployee);
+    let newUser = this.collectAllDataAboutUser(row);
+    if (newUser.role == "User") {
+      this.dataService.postUser(newUser);
+    } else {
+      this.dataService.postUserAdmin(newUser);
+    }
     this.cleanCreateRow(row);
   }
 
@@ -43,12 +46,23 @@ export class UserComponent implements OnInit, AfterViewChecked {
     user.forename = this.getElementFromInputByFieldName("forename", row);
     user.surname = this.getElementFromInputByFieldName("surname", row);
     user.password = this.getElementFromInputByFieldName("password", row);
-    // collect role
+    user.role = this.getElementFromRoleInput(row);
     return user;
   }
 
   getElementFromInputByFieldName(name, row) {
     return row.getElementsByClassName("input-" + name)[0].value;
+  }
+
+  getElementFromRoleInput(row) {
+    let inputRoles = row.getElementsByClassName("input-role");
+    let inputRole;
+    if (inputRoles[0].style.display != "none") {
+      inputRole = inputRoles[0];
+    } else {
+      inputRole = inputRoles[1];
+    }
+    return inputRole.value;
   }
 
   findRow(event) {
@@ -64,7 +78,7 @@ export class UserComponent implements OnInit, AfterViewChecked {
 
   checkPermissionLevel() {
     let permissionLevel = this.authenticationService.getUserRole();
-    let restrictedItems = document.getElementsByClassName("level-3");
+    let restrictedItems = document.getElementsByClassName("restricted");
     for (let i = 0; i < restrictedItems.length; i++) {
       let item = restrictedItems.item(i) as HTMLElement;
       if (!item.classList.contains("level-" + permissionLevel)) {

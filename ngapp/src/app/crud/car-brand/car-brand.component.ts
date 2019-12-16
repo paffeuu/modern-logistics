@@ -92,7 +92,7 @@ export class CarBrandComponent implements OnInit, AfterViewChecked {
 
   checkPermissionLevel() {
     let permissionLevel = this.authenticationService.getUserRole();
-    let restrictedItems = document.getElementsByClassName("level-3");
+    let restrictedItems = document.getElementsByClassName("restricted");
     for (let i = 0; i < restrictedItems.length; i++) {
       let item = restrictedItems.item(i) as HTMLElement;
       if (!item.classList.contains("level-" + permissionLevel)) {
