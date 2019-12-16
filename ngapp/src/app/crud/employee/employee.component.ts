@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Employee } from 'src/app/model/employee';
 import { DataService } from 'src/app/service/data.service';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent implements OnInit, AfterViewChecked {
 
   employees: Employee[];
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.dataService.getEmployeesObservable().subscribe(employees => {
@@ -20,6 +23,10 @@ export class EmployeeComponent implements OnInit {
     });
 
     this.dataService.getEmployees();
+  }
+
+  ngAfterViewChecked() {
+    this.checkPermissionLevel();
   }
 
   onCreateItem(event) {
@@ -83,6 +90,17 @@ export class EmployeeComponent implements OnInit {
     let inputs = row.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
       inputs.item(i).value = "";  
+    }
+  }
+
+  checkPermissionLevel() {
+    let permissionLevel = this.authenticationService.getUserRole();
+    let restrictedItems = document.getElementsByClassName("level-3");
+    for (let i = 0; i < restrictedItems.length; i++) {
+      let item = restrictedItems.item(i) as HTMLElement;
+      if (!item.classList.contains("level-" + permissionLevel)) {
+        item.style.display = "none";
+      }
     }
   }
 }

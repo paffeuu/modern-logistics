@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Delivery } from 'src/app/model/delivery';
 import { DataService } from 'src/app/service/data.service';
 import { FuelType } from 'src/app/model/fuel-type';
@@ -6,20 +6,23 @@ import { Car } from 'src/app/model/car';
 import { Client } from 'src/app/model/client';
 import { Employee } from 'src/app/model/employee';
 import { DeliveryEmployee } from 'src/app/model/delivery-employee';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-delivery',
   templateUrl: './delivery.component.html',
   styleUrls: ['./delivery.component.css']
 })
-export class DeliveryComponent implements OnInit {
+export class DeliveryComponent implements OnInit, AfterViewChecked {
 
   deliveries: Delivery[];
   cars: Car[];
   clients: Client[];
   employees: Employee[];
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.dataService.getDeliveriesObservable().subscribe(deliveries => {
@@ -56,6 +59,10 @@ export class DeliveryComponent implements OnInit {
     this.dataService.getClients();
     this.dataService.getEmployees();
     this.dataService.getCars();
+  }
+
+  ngAfterViewChecked() {
+    this.checkPermissionLevel();
   }
 
   onCreateItem(event) {
@@ -254,6 +261,17 @@ export class DeliveryComponent implements OnInit {
 
   getEmployees() {
     this.dataService.getEmployees();
+  }
+
+  checkPermissionLevel() {
+    let permissionLevel = this.authenticationService.getUserRole();
+    let restrictedItems = document.getElementsByClassName("level-3");
+    for (let i = 0; i < restrictedItems.length; i++) {
+      let item = restrictedItems.item(i) as HTMLElement;
+      if (!item.classList.contains("level-" + permissionLevel)) {
+        item.style.display = "none";
+      }
+    }
   }
 
 }

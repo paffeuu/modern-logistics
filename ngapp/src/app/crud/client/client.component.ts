@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Client } from 'src/app/model/client';
 import { DataService } from 'src/app/service/data.service';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.css']
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent implements OnInit, AfterViewChecked {
 
   clients: Client[] = [];
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.dataService.getClientsObservable().subscribe(clients => {
@@ -22,6 +25,10 @@ export class ClientComponent implements OnInit {
     })
 
     this.dataService.getClients();
+  }
+
+  ngAfterViewChecked() {
+    this.checkPermissionLevel();
   }
 
   onCreateItem(event) {
@@ -78,6 +85,17 @@ export class ClientComponent implements OnInit {
     let inputs = row.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
       inputs.item(i).value = "";  
+    }
+  }
+
+  checkPermissionLevel() {
+    let permissionLevel = this.authenticationService.getUserRole();
+    let restrictedItems = document.getElementsByClassName("level-3");
+    for (let i = 0; i < restrictedItems.length; i++) {
+      let item = restrictedItems.item(i) as HTMLElement;
+      if (!item.classList.contains("level-" + permissionLevel)) {
+        item.style.display = "none";
+      }
     }
   }
 }

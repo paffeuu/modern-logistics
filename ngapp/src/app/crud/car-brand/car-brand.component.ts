@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { CarBrand } from '../../model/car-brand';
 import { DataService } from 'src/app/service/data.service';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-car-brand',
   templateUrl: './car-brand.component.html',
   styleUrls: ['./car-brand.component.css']
 })
-export class CarBrandComponent implements OnInit {
+export class CarBrandComponent implements OnInit, AfterViewChecked {
 
   carBrands: CarBrand[] = [];
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.dataService.getCarBrandsObservable().subscribe((carBrands) => {
@@ -20,6 +23,10 @@ export class CarBrandComponent implements OnInit {
     })
 
     this.dataService.getCarBrands();
+  }
+
+  ngAfterViewChecked() {
+    this.checkPermissionLevel();
   }
 
   onCreateItem(event) {
@@ -83,4 +90,14 @@ export class CarBrandComponent implements OnInit {
     }
   }
 
+  checkPermissionLevel() {
+    let permissionLevel = this.authenticationService.getUserRole();
+    let restrictedItems = document.getElementsByClassName("level-3");
+    for (let i = 0; i < restrictedItems.length; i++) {
+      let item = restrictedItems.item(i) as HTMLElement;
+      if (!item.classList.contains("level-" + permissionLevel)) {
+        item.style.display = "none";
+      }
+    }
+  }
 }
