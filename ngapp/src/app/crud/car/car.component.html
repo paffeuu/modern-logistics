@@ -1,0 +1,85 @@
+<div class="entity-header">
+        <h1><u>Pojazdy</u></h1>
+    </div>
+    
+    <div class="table-container">
+        <table class="table">
+            <tr>
+                <th>VIN</th>
+                <th>Marka</th>
+                <th>Model</th>
+                <th>Rejestracja</th>
+                <th>...</th>
+            </tr>
+            <tr class="create-row level-2 level-3 restricted">
+                    <td class="id-column">
+                        <div class="cell-container">
+                            <input class="input-vin">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <input class="input-brandname" list="carbrandnames">
+                            <datalist id="carbrandnames"></datalist>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <input class="input-model">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <input class="input-registration">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <div class="icon-container">
+                                <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                            </div>
+                        </div>
+                    </td> 
+                </tr>
+            <ng-template ngFor let-item="$implicit" [ngForOf]="cars" let-i="index">
+                <tr class="default-row">
+                    <td class="id-column">
+                        <div class="cell-container">
+                            <p>{{item.vin}}</p> 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <p>{{item.brand != null ? item.brand.name : ""}}</p>
+                            <input class="input-brandname" list="carbrandnames" placeholder="{{item.brand != null ? item.brand.name : ''}}">
+                            <datalist id="carbrandnames"></datalist>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <p>{{item.model}}</p>
+                            <input class="input-model" value="{{item.model}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <p>{{item.registration}}</p>
+                            <input class="input-registration" value="{{item.registration}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cell-container">
+                            <div class="icon-container">
+                                    <img class="icon level-2 level-3 restricted" src="../../../assets/edit-icon.png" (click)="onEditItem($event)">
+                                    <img class="icon level-3 restricted" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)">
+                            </div>
+                            <div>
+                                <button class="commit-button" (click)="onCommitButtonClick($event)">Zatwierdź</button>
+                            </div>
+                        </div>
+                    </td> 
+                </tr>
+            </ng-template>
+        </table>
+    </div>
+    

@@ -1,0 +1,141 @@
+<div class="entity-header">
+    <h1><u>Dostawy</u></h1>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>VIN pojazdu</th>
+            <th>Data</th>
+            <th>Zużyto paliwa</th>
+            <th>Typ paliwa</th>
+            <th>Przejechano km</th>
+            <th>Nazwa klienta</th>
+            <th>Nazwiska pracowników</th>
+            <th>...</th>
+        </tr>
+        <tr class="create-row level-2 level-3 restricted">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>-</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-carvin" list="carvins1">
+                        <datalist class="carvins" id="carvins1"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-entrydate">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-fuelspent">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>-</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-kmtravelled">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-clientid" list="clientnames1">
+                        <datalist class="clientnames" id="clientnames1"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <ul>
+                            <!-- <ng-template ngFor let-employee="$implicit" [ngForOf]="employees" let-i="index">
+                                <li><input class="input-employees input-employees-{{employee.id}}" type="checkbox"><p>{{item.employeeId}}</p></li>
+                            </ng-template> -->
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                                <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        <ng-template ngFor let-item="$implicit" [ngForOf]="deliveries" let-i="index">
+            <tr class="default-row">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>{{item.id}}</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p class="paragraph-carvin">{{item.carVIN}}</p>
+                        <input class="input-carvin" list="carvins2" placeholder="{{item.car != null ? item.car.vin : ''}}">
+                        <datalist class="carvins" id="carvins2"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.entryDate}}</p>
+                        <input class="input-entrydate" value="{{item.entryDate}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.fuelSpent}}</p>
+                        <input class="input-fuelspent" value="{{item.fuelSpent}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.fuelTypePolishString}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.kmTravelled}}</p>
+                        <input class="input-kmtravelled" value="{{item.kmTravelled}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p class="paragraph-clientid">{{item.clientName}}</p>
+                        <input class="input-clientid" list="clientnames2">
+                        <datalist id="clientnames2"></datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.employeeSurnames}}</p>
+                        <ul>
+                            <ng-template ngFor let-employee="$implicit" [ngForOf]="employees" let-i="index">
+                                <li><input class="input-employees input-employees-{{employee.id}}" type="checkbox"><p>{{item.employeeId}}</p></li>
+                            </ng-template>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                                <img class="icon level-2 level-3 restricted" src="../../../assets/edit-icon.png" (click)="onEditItem($event)">
+                                <img class="icon level-3 restricted" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)">
+                        </div>
+                        <div>
+                            <button class="commit-button" (click)="onCommitButtonClick($event)">Zatwierdź</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </table>
+</div>

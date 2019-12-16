@@ -1,0 +1,81 @@
+<div class="entity-header">
+    <h1><u>Klienci</u></h1>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Adres</th>
+            <th>Id dostaw</th>
+            <th>...</th>
+        </tr>
+        <tr class="create-row level-2 level-3 restricted">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>-</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-name">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-address">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>-</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                            <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                        </div>
+                    </div>
+                </td> 
+            </tr>
+        <ng-template ngFor let-item="$implicit" [ngForOf]="clients" let-i="index">
+            <tr class="default-row">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>{{item.id}}</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.name}}</p>
+                        <input class="input-name" value="{{item.name}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.address}}</p>
+                        <input class="input-address" value="{{item.address}}">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.deliveriesIds}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                                <img class="icon level-2 level-3 restricted" src="../../../assets/edit-icon.png" (click)="onEditItem($event)">
+                                <img class="icon level-3 restricted" src="../../../assets/delete-icon.png" (click)="onDeleteItem($event)">
+                        </div>
+                        <div>
+                            <button class="commit-button" (click)="onCommitButtonClick($event)">Zatwierdź</button>
+                        </div>
+                    </div>
+                </td> 
+            </tr>
+        </ng-template>
+    </table>
+</div>

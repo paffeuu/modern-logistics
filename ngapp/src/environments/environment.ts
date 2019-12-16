@@ -3,8 +3,26 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  hostName: "http://localhost:5000/",
+  apiPath: "api/",
+  authPath: "users/"
 };
+
+export const endpoints = {
+  cars: "Cars",
+  carBrands: "CarBrands",
+  clients: "Clients",
+  deliveries: "Deliveries",
+  employees: "Employees"
+}
+
+export const authEndpoints = {
+  login: "authenticate",
+  users: "",
+  newUser: "registerUser",
+  newUserAdmin: "registerAdmin"
+}
 
 /*
  * For easier debugging in development mode, you can import the following file
