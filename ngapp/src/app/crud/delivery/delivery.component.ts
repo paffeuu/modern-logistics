@@ -117,10 +117,14 @@ export class DeliveryComponent implements OnInit, AfterViewChecked {
     delivery.entryDate = this.getElementFromInputByFieldName("entrydate", row);
     delivery.fuelSpent = this.getElementFromInputByFieldName("fuelspent", row);
     delivery.kmTravelled = this.getElementFromInputByFieldName("kmtravelled", row);
-    if (this.getElementFromInputByFieldName("clientid", row)) {
-      delivery.clientID = this.clients.find(client => client.name == this.getElementFromInputByFieldName("clientid", row)).id;
-    } else {
-      delivery.clientID = this.clients.find(client => client.name == this.getElementFromParagraphByFieldName("clientid", row)).id;
+    let foundClient;
+    if (this.getElementFromInputByFieldName("clientid", row) && this.getElementFromInputByFieldName("clientid", row) != "") {
+      foundClient = this.clients.find(client => client.name == this.getElementFromInputByFieldName("clientid", row));
+    } else if (this.getElementFromParagraphByFieldName("clientid", row)) {
+      foundClient = this.clients.find(client => client.name == this.getElementFromParagraphByFieldName("clientid", row));
+    }
+    if (foundClient) {
+      delivery.clientID = foundClient.id;
     }
     this.collectDataAboutDeliveryEmployees(delivery, row);
     return delivery;
@@ -164,13 +168,15 @@ export class DeliveryComponent implements OnInit, AfterViewChecked {
 
   completeClientNames() {
     let clientNamesCreate = document.getElementById("clientnames1");
-    clientNamesCreate.innerHTML = "";
-    this.clients.forEach(client => {
-      let clientName = client.name;
-      let option = document.createElement('option');
-      option.value = clientName;
-      clientNamesCreate.appendChild(option);
-    });
+    if (clientNamesCreate) {
+      clientNamesCreate.innerHTML = "";
+      this.clients.forEach(client => {
+        let clientName = client.name;
+        let option = document.createElement('option');
+        option.value = clientName;
+        clientNamesCreate.appendChild(option);
+      });
+    }
     
     this.deliveries.forEach(delivery => {
       let client = this.clients.find(client => client.id == delivery.clientID)
@@ -248,7 +254,11 @@ export class DeliveryComponent implements OnInit, AfterViewChecked {
   }
 
   getElementFromParagraphByFieldName(name, row) {
-    return row.getElementsByClassName("paragraph-" + name)[0].textContent;
+    let paragraph = row.getElementsByClassName("paragraph-" + name);
+    if (paragraph[0]) {
+      return paragraph[0].textContent;
+    }
+    return null;
   }
 
   getCars() {

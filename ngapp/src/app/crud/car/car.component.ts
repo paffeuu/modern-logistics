@@ -88,7 +88,10 @@ export class CarComponent implements OnInit, AfterViewChecked {
   collectAllDataAboutCarCreate(row): Car {
     let car = new Car();
     car.vin = this.getElementFromInputByFieldName("vin", row);
-    car.brandID = this.carBrands.find(carBrandName => carBrandName.name == row.getElementsByClassName("input-brandname")[0].value).id;
+    let foundCarBrand = this.carBrands.find(carBrandName => carBrandName.name == row.getElementsByClassName("input-brandname")[0].value);
+    if (foundCarBrand) {
+      car.brandID = foundCarBrand.id;
+    }
     car.model = this.getElementFromInputByFieldName("model", row);
     car.registration = this.getElementFromInputByFieldName("registration", row);
     return car;
