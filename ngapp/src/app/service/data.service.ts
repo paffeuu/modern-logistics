@@ -5,9 +5,10 @@ import { CarBrand } from '../model/car-brand';
 import { Car } from '../model/car';
 import { Delivery } from '../model/delivery';
 import { Client } from '../model/client';
-import { environment, endpoints } from 'src/environments/environment';
+import { environment, endpoints, authEndpoints } from 'src/environments/environment';
 import { Employee } from '../model/employee';
 import { NotificationService } from './notification.service';
+import { UserModel } from '../model/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,9 @@ export class DataService {
   carBrandsSubject: Subject<CarBrand[]>;
   carsSubject: Subject<Car[]>;
   deliveriesSubject: Subject<Delivery[]>;
-  clientSubject: Subject<Client[]>;
+  clientsSubject: Subject<Client[]>;
   employeesSubject: Subject<Employee[]>;
+  usersSubject: Subject<UserModel[]>; 
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -32,8 +34,9 @@ export class DataService {
     this.carBrandsSubject = new Subject();
     this.carsSubject = new Subject();
     this.deliveriesSubject = new Subject();
-    this.clientSubject = new Subject();
+    this.clientsSubject = new Subject();
     this.employeesSubject = new Subject();
+    this.usersSubject = new Subject();
   }
 
   getCarBrandsObservable() {
@@ -49,11 +52,15 @@ export class DataService {
   }
 
   getClientsObservable() {
-    return this.clientSubject.asObservable();
+    return this.clientsSubject.asObservable();
   }
 
   getEmployeesObservable() {
     return this.employeesSubject.asObservable();
+  }
+
+  getUsersObservable() {
+    return this.usersSubject.asObservable();
   }
 
   postCarBrand(carBrand) {
@@ -119,7 +126,7 @@ export class DataService {
 
   getClients() {
     this.http.get(environment.hostName + environment.apiPath + endpoints.clients).subscribe(
-      clients => this.clientSubject.next(clients as Client[]),
+      clients => this.clientsSubject.next(clients as Client[]),
       err => this.notificationService.parseErrorMessage(err)
     )
   }
@@ -127,6 +134,13 @@ export class DataService {
   getEmployees() {
     this.http.get(environment.hostName + environment.apiPath + endpoints.employees).subscribe(
       employees => this.employeesSubject.next(employees as Employee[]),
+      err => this.notificationService.parseErrorMessage(err)
+    )
+  }
+
+  getUsers() {
+    this.http.get(environment.hostName + environment.authPath + authEndpoints.users).subscribe(
+      users => this.usersSubject.next(users as UserModel[]),
       err => this.notificationService.parseErrorMessage(err)
     )
   }

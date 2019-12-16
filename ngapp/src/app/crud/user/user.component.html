@@ -1,0 +1,92 @@
+<div class="entity-header">
+    <h1><u>Pracownicy</u></h1>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Nazwa użytkownika</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Hasło</th>
+            <th>Rola</th>
+            <th>...</th>
+        </tr>
+        <tr class="create-row level-1 level-2 level-3">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>-</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-username">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-forename">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-surname">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-password" type="password">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <input class="input-role">
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <div class="icon-container">
+                            <img class="icon" src="../../../assets/create-icon.png" (click)="onCreateItem($event)">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+        <ng-template ngFor let-item="$implicit" [ngForOf]="users" let-i="index">
+            <tr class="default-row">
+                <td class="id-column">
+                    <div class="cell-container">
+                        <p>{{item.id}}</p> 
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.username}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.forename}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.surname}}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>-</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-container">
+                        <p>{{item.role}}</p>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </ng-template>
+    </table>
+</div>

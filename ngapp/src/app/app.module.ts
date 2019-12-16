@@ -13,6 +13,7 @@ import { EmployeeComponent } from './crud/employee/employee.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthenticationService } from './service/authentication.service';
 import { AuthenticationInterceptor } from './service/authentication-interceptor';
+import { UserComponent } from './crud/user/user.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
   { path: 'car', component: CarComponent, canActivate: [AuthenticationService]},
   { path: 'delivery', component: DeliveryComponent, canActivate: [AuthenticationService]},
   { path: 'client', component: ClientComponent, canActivate: [AuthenticationService]},
-  { path: 'employee', component: EmployeeComponent, canActivate: [AuthenticationService]}
+  { path: 'employee', component: EmployeeComponent, canActivate: [AuthenticationService]},
+  { path: 'user', component: UserComponent, canActivate: [AuthenticationService]}
 ];
 
 @NgModule({
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     DeliveryComponent,
     ClientComponent,
     EmployeeComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

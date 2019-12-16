@@ -18,7 +18,8 @@ export const endpoints = {
 }
 
 export const authEndpoints = {
-  login: "authenticate"
+  login: "authenticate",
+  users: ""
 }
 
 /*
