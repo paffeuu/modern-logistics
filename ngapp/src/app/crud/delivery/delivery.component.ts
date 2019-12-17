@@ -117,6 +117,8 @@ export class DeliveryComponent implements OnInit, AfterViewChecked {
     delivery.entryDate = this.getElementFromInputByFieldName("entrydate", row);
     delivery.fuelSpent = this.getElementFromInputByFieldName("fuelspent", row);
     delivery.kmTravelled = this.getElementFromInputByFieldName("kmtravelled", row);
+    let fuelType = this.getElementFromInputByFieldName("fueltype", row);
+    delivery.fuelType = delivery.setFuelType(fuelType);
     let foundClient;
     if (this.getElementFromInputByFieldName("clientid", row) && this.getElementFromInputByFieldName("clientid", row) != "") {
       foundClient = this.clients.find(client => client.name == this.getElementFromInputByFieldName("clientid", row));
@@ -252,6 +254,7 @@ export class DeliveryComponent implements OnInit, AfterViewChecked {
   getElementFromInputByFieldName(name, row) {
     return row.getElementsByClassName("input-" + name)[0].value;
   }
+
 
   getElementFromParagraphByFieldName(name, row) {
     let paragraph = row.getElementsByClassName("paragraph-" + name);
