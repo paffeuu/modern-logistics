@@ -18,4 +18,13 @@ export class Delivery {
     fuelTypePolishString: string;
     deliveryEmployeesStr: string;
     employeeSurnames: string;
+
+    setFuelType(fuelType) {
+        let fuelTypes = ["benzyna", "diesel", "gaz", "etanol", "biodiesel", "elektryczny", "hydrogen"];
+        for (let i = 0; i < fuelTypes.length; i++) {
+            if (fuelTypes[i] == fuelType) {
+                return i;
+            }
+        }
+    }
 }
